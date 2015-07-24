@@ -1,5 +1,9 @@
+require_relative 'vrealize_base'
+
 module KnifeVrealize
   module VraBase
+    include KnifeVrealize::Base
+
     def self.included(includer)
       includer.class_eval do
         deps do
