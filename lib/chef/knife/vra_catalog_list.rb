@@ -18,6 +18,7 @@ module KnifeVrealize
 
       if get_config_value(:entitled)
         items = vra_client.catalog.entitled_items
+        items.map! { |x| x['catalogItem'] }
       else
         items = vra_client.catalog.all_items
       end
