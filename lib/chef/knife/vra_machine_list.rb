@@ -1,3 +1,5 @@
+require 'chef/knife'
+
 module KnifeVrealize
   class VraMachineList < Chef::Knife
     include KnifeVrealize::Base
