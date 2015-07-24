@@ -60,6 +60,29 @@ module KnifeVrealize
           exit 1
         end
       end
+
+      def wait_for_request(request, secs_to_wait=300)
+        print 'Waiting for request to complete.'
+        last_status = ''
+        secs_to_wait.times do
+          request.refresh
+
+          if request.status == 'SUCCESSFUL' || request.status == 'FAILED'
+            print "\n"
+            break
+          end
+
+          if last_status == request.status
+            print '.'
+          else
+            last_status = request.status
+            print "\n"
+            print "Current request status: #{request.status}."
+          end
+
+          sleep 1
+        end
+      end
     end
   end
 end
