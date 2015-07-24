@@ -1,4 +1,4 @@
-# knife-vro
+# knife-vrealize
 
 This is a work-in-progress Knife plugin that will allow you to interact with 
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
