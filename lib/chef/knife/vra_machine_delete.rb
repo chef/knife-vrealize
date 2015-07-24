@@ -25,7 +25,7 @@ module KnifeVrealize
       begin
         object = klass.load(name)
         object.destroy
-        ui.warn("Deleted #{type_name} #{name}")
+        puts "Deleted #{type_name} #{name}"
       rescue Net::HTTPServerException
         ui.warn("Could not find a #{type_name} named #{name} to delete!")
       end
@@ -70,6 +70,16 @@ module KnifeVrealize
         wait_for_request(destroy_request)
         
         puts "Destroy request complete.  Status: #{destroy_request.status}."
+
+        if get_config_value(:purge)
+          object_name = get_config_value(:chef_node_name) || resource.name
+          puts "Deleting node and client objects for #{object_name} on Chef Server..."
+
+          destroy_item(Chef::Node, object_name, 'node')
+          destroy_item(Chef::ApiClient, object_name, 'client')
+        else
+          puts "No Chef Server node or client deleted for #{resource.name} since --purge was not specified."
+        end
       end
     end
   end
