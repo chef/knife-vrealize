@@ -19,15 +19,15 @@ module KnifeVrealize
       end
 
       server_list = [
-        ui.color('Resource ID', :bold),
         ui.color('Name', :bold),
+        ui.color('Resource ID', :bold),
         ui.color('Status', :bold),
         ui.color('Catalog Name', :bold)
       ]
 
-      servers.each do |server|
-        server_list << server.id
+      servers.sort { |a, b| a.name <=> b.name }.each do |server|
         server_list << server.name
+        server_list << server.id
         server_list << server.status
         server_list << server.catalog_name
       end
