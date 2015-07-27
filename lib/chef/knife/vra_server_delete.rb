@@ -3,18 +3,18 @@ require 'chef/knife/vrealize_base'
 require 'chef/knife/vra_base'
 
 module KnifeVrealize
-  class VraMachineDelete < Chef::Knife
+  class VraServerDelete < Chef::Knife
     include KnifeVrealize::Base
     include KnifeVrealize::VraBase
 
-    banner 'knife vra machine delete MACHINE_ID [MACHINE_ID] [MACHINE_ID]'
+    banner 'knife vra server delete MACHINE_ID [MACHINE_ID] [MACHINE_ID]'
 
     option :purge,
       :short => "-P",
       :long => "--purge",
       :boolean => true,
       :default => false,
-      :description => "Destroy corresponding node and client on the Chef Server, in addition to destroying the vRA resource itself.  Assumes node and client have the same name as the machine (if not, add the '--node-name' option)."
+      :description => "Destroy corresponding node and client on the Chef Server, in addition to destroying the vRA resource itself.  Assumes node and client have the same name as the server (if not, add the '--node-name' option)."
 
     option :chef_node_name,
       :short => "-N NAME",
@@ -35,27 +35,27 @@ module KnifeVrealize
       validate_required_config!
 
       if @name_args.empty?
-        ui.error('You must specify at least one machine you would like to destroy.')
+        ui.error('You must specify at least one server you would like to destroy.')
         exit 1
       end
 
-      @name_args.each do |machine_id|
+      @name_args.each do |server_id|
         begin
-          resource = vra_client.resources.by_id(machine_id)
+          resource = vra_client.resources.by_id(server_id)
         rescue Vra::Exception::NotFound
-          ui.error("Unable to find vRA resource with ID: #{machine_id}")
+          ui.error("Unable to find vRA resource with ID: #{server_id}")
           next
         rescue => e
-          ui.error("Error while looking up vRA resource ID #{machine_id}: #{e.message}")
+          ui.error("Error while looking up vRA resource ID #{server_id}: #{e.message}")
           next
         end
 
         if resource.status == 'DELETED'
-          ui.warn("Machine #{resource.name} (#{machine_id}) is already deleted.")
+          ui.warn("Machine #{resource.name} (#{server_id}) is already deleted.")
           next
         end
 
-        msg_pair('Machine ID', machine_id)
+        msg_pair('Machine ID', server_id)
         msg_pair('Machine Name', resource.name)
         msg_pair('Machine Status', resource.status)
         msg_pair('Catalog Name', resource.catalog_name)
@@ -65,7 +65,7 @@ module KnifeVrealize
         confirm('Do you really want to delete this server')
 
         destroy_request = resource.destroy
-        puts "Destroy request #{destroy_request.id} for #{resource.name} (#{machine_id}) submitted."
+        puts "Destroy request #{destroy_request.id} for #{resource.name} (#{server_id}) submitted."
 
         wait_for_request(destroy_request)
         
