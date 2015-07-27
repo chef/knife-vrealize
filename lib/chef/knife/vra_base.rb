@@ -1,5 +1,7 @@
 require_relative 'vrealize_base'
 
+require 'timeout'
+
 module KnifeVrealize
   module VraBase
     include KnifeVrealize::Base
@@ -27,6 +29,18 @@ module KnifeVrealize
           description: 'Skip any SSL verification for the vRA API',
           boolean:     true,
           default:     false
+
+        option :request_wait_time,
+          long:        '--request-wait-time SECS',
+          description: 'Number of seconds to wait on a pending vRA request, defaults to 300',
+          default:     300,
+          proc:        Proc.new { |secs| secs.to_i }
+
+        option :request_refresh_time,
+          long:        '--request-refresh-time SECS',
+          description: 'Number of seconds to sleep between each check of the request status, defaults to 2',
+          default:     2,
+          proc:        Proc.new { |secs| secs.to_i }
       end
 
       def verify_ssl?
@@ -61,26 +75,41 @@ module KnifeVrealize
         end
       end
 
-      def wait_for_request(request, secs_to_wait=300)
+      def wait_for_request(request)
         print 'Waiting for request to complete.'
-        last_status = ''
-        secs_to_wait.times do
-          request.refresh
 
-          if request.status == 'SUCCESSFUL' || request.status == 'FAILED'
-            print "\n"
-            break
+        wait_time    = get_config_value(:request_wait_time)
+        refresh_time = get_config_value(:request_refresh_time)
+        last_status  = ''
+
+        begin
+          Timeout.timeout(wait_time) do
+            loop do
+              request.refresh
+
+              if request.completed?
+                print "\n"
+                break
+              end
+
+              if last_status == request.status
+                print '.'
+              else
+                last_status = request.status
+                print "\n"
+                print "Current request status: #{request.status}."
+              end
+
+              sleep refresh_time
+            end
           end
-
-          if last_status == request.status
-            print '.'
-          else
-            last_status = request.status
-            print "\n"
-            print "Current request status: #{request.status}."
-          end
-
-          sleep 1
+        rescue Timeout::Error
+          puts "\n"
+          ui.error "Request did not complete in #{wait_time} seconds."
+          exit 1
+        rescue
+          # re-raise any non-timeout-related error
+          raise
         end
       end
     end
