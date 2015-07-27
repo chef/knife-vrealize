@@ -1,115 +1,114 @@
 require 'chef/knife'
-require 'chef/knife/vrealize_base'
-require 'chef/knife/vra_base'
 
-module KnifeVrealize
-  class VraServerCreate < Chef::Knife
-    include KnifeVrealize::Base
-    include KnifeVrealize::VraBase
+require 'chef/knife/cloud/server/create_command'
+require 'chef/knife/cloud/server/create_options'
+require 'chef/knife/cloud/vra_service'
+require 'chef/knife/cloud/vra_service_helpers'
+require 'chef/knife/cloud/vra_service_options'
+require 'chef/knife/cloud/exceptions'
 
-    banner 'knife vra server create CATALOG_ID (options)'
+class Chef
+  class Knife
+    class Cloud
+      class VraServerCreate < ServerCreateCommand
+        include VraServiceHelpers
+        include VraServiceOptions
+        include ServerCreateOptions
 
-    option :cpus,
-      long:        '--cpus NUM_CPUS',
-      description: 'Number of CPUs the server should have',
-      required:    true
+        banner 'knife vra server create CATALOG_ID (options)'
 
-    option :memory,
-      long:        '--memory RAM_IN_MB',
-      description: 'Amount of RAM, in MB, the server should have',
-      required:    true
+        option :cpus,
+          long:        '--cpus NUM_CPUS',
+          description: 'Number of CPUs the server should have',
+          required:    true
 
-    option :requested_for,
-      long:        '--requested-for LOGIN',
-      description: 'The login to list as the owner of this resource.  Will default to the vra_username parameter',
-      required:    true
+        option :memory,
+          long:        '--memory RAM_IN_MB',
+          description: 'Amount of RAM, in MB, the server should have',
+          required:    true
 
-    option :subtenant_id,
-      long:        '--subtenant-id ID',
-      description: 'The subtenant ID (a.k.a "business group") to list as the owner of this resource.  Will default to the blueprint subtenant if it exists.'
+        option :requested_for,
+          long:        '--requested-for LOGIN',
+          description: 'The login to list as the owner of this resource.  Will default to the vra_username parameter',
+          required:    true
 
-    option :lease_days,
-      long:        '--lease-days NUM_DAYS',
-      description: 'Number of days requested for the server lease, provided the blueprint allows this to be specified'
+        option :subtenant_id,
+          long:        '--subtenant-id ID',
+          description: 'The subtenant ID (a.k.a "business group") to list as the owner of this resource.  Will default to the blueprint subtenant if it exists.'
 
-    option :notes,
-      long:        '--notes NOTES',
-      description: 'String of text to be included in the request notes.'
+        option :lease_days,
+          long:        '--lease-days NUM_DAYS',
+          description: 'Number of days requested for the server lease, provided the blueprint allows this to be specified'
 
-    option :extra_params,
-      long:        '--extra-params KEY1=TYPE:VALUE1[,KEY2=TYPE:VALUE2],...',
-      description: 'Additional parameters to pass to vRA for this catalog request.  TYPE must be "string" or "integer" and unfortunately vRA cannot determine this on its own.',
-      default:     [],
-      proc:        Proc.new { |params| params.split(',') }
+        option :notes,
+          long:        '--notes NOTES',
+          description: 'String of text to be included in the request notes.'
 
-    option :skip_bootstrap,
-      long:        '--skip-bootstrap',
-      description: 'Disable bootstrap of server after creation.  This is helpful if your vRA blueprint already ensures Chef is installed and registered.',
-      boolean:     true,
-      default:     false
+        option :extra_params,
+          long:        '--extra-param KEY=TYPE:VALUE',
+          description: 'Additional parameters to pass to vRA for this catalog request.  TYPE must be "string" or "integer" and unfortunately vRA cannot determine this on its own.  Can be used multiple times.',
+          default:     {},
+          proc:        Proc.new { |param| 
+                         Chef::Config[:knife][:vra_extra_params] ||= {}
+                         key, value_str = param.split('=')
+                         Chef::Config[:knife][:vra_extra_params].merge!({key => value_str})
+                       }
+        
+        def validate_params!
+          super
 
-    def build_catalog_request
-      catalog_request = vra_client.catalog.request(@name_args.first)
+          if @name_args.empty?
+            ui.error("You must supply a Catalog ID to use for your new server.")
+            exit 1
+          end
 
-      catalog_request.cpus          = get_config_value(:cpus)
-      catalog_request.memory        = get_config_value(:memory)
-      catalog_request.requested_for = get_config_value(:requested_for)
-      catalog_request.lease_days    = get_config_value(:lease_days)    unless get_config_value(:lease_days).nil?
-      catalog_request.notes         = get_config_value(:notes)         unless get_config_value(:notes).nil?
-      catalog_request.subtenant_id  = get_config_value(:subtenant_id)  unless get_config_value(:subtenant_id).nil?
-
-      get_config_value(:extra_params).each do |param|
-        key, value_data = param.split('=')
-        type, value = value_data.split(':')
-
-        unless key && type && value
-          ui.error("extra parameter did not include key, type, and value: #{param}")
-          exit 1
+          validate_extra_params!
         end
 
-        catalog_request.set_parameter(key, type, value)
-      end
+        def before_exec_command
+          super
 
-      catalog_request
-    end
+          @create_options = {
+            catalog_id:       @name_args.first,
+            cpus:             locate_config_value(:cpus),
+            memory:           locate_config_value(:memory),
+            requested_for:    locate_config_value(:requested_for),
+            subtenant_id:     locate_config_value(:subtenant_id),
+            lease_days:       locate_config_value(:lease_days),
+            notes:            locate_config_value(:notes),
+            extra_params:     extra_params,
+            wait_time:        locate_config_value(:server_create_timeout),
+            refresh_rate:     locate_config_value(:request_refresh_rate)
+          }
+        end
 
-    def bootstrap_server(server)
-      puts "Beginning bootstrap of #{server.name}..."
+        def before_bootstrap
+          super
 
-      puts "Bootstrap of #{server.name} complete."
-    end
+          config[:chef_node_name] = locate_config_value(:chef_node_name) ? locate_config_value(:chef_node_name) : server.name
+          config[:bootstrap_ip_address] = server.ip_addresses.first
+        end
 
-    def run
-      if @name_args.empty?
-        ui.error('You must specify a catalog ID from which to create a server.')
-        exit 1
-      end
+        def extra_params
+          return unless Chef::Config[:knife][:vra_extra_params]
 
-      catalog_request = build_catalog_request
+          params = []
+          Chef::Config[:knife][:vra_extra_params].each do |key, value_str|
+            type, value = value_str.split(':')
+            params << { key: key, type: type, value: value }
+          end
 
-      submitted_request = catalog_request.submit
-      puts "Catalog request #{submitted_request.id} submitted."
-      wait_for_request(submitted_request)
-      puts "Catalog request complete.\n"
+          params
+        end
 
-      msg_pair('Request Status', submitted_request.status)
-      msg_pair('Completion State', submitted_request.completion_state)
-      msg_pair('Completion Details', submitted_request.completion_details)
+        def validate_extra_params!
+          return if extra_params.nil?
 
-      exit 1 if submitted_request.failed?
-
-      servers = submitted_request.resources.select { |resource| resource.vm? }
-      if servers.length == 0
-        ui.error("No server resources were created as part of your request.  Check the vRA UI for more information.")
-        exit 1
-      end
-
-      servers.each do |server|
-        msg_pair('Server Name', server.name)
-        msg_pair('Server Primary IP Address', server.ip_addresses.first)
-        bootstrap_server(server) unless get_config_value(:skip_bootstrap)
-
-        puts "\n"
+          extra_params.each do |param|
+            raise ArgumentError, "No type and value set for extra parameter #{param[:key]}" if param[:type].nil? || param[:value].nil?
+            raise ArgumentError, "Invalid parameter type for #{param[:key]} - must be string or integer" unless param[:type] == 'string' || param[:type] == 'integer'
+          end
+        end
       end
     end
   end

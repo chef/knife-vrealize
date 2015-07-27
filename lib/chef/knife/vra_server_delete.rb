@@ -1,11 +1,9 @@
 require 'chef/knife'
-require 'chef/knife/vrealize_base'
-require 'chef/knife/vra_base'
 
 module KnifeVrealize
   class VraServerDelete < Chef::Knife
-    include KnifeVrealize::Base
-    include KnifeVrealize::VraBase
+    #include KnifeVrealize::Base
+    #include KnifeVrealize::VraBase
 
     banner 'knife vra server delete MACHINE_ID [MACHINE_ID] [MACHINE_ID]'
 

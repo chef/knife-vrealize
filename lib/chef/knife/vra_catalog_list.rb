@@ -2,8 +2,6 @@ require 'chef/knife'
 
 module KnifeVrealize
   class VraCatalogList < Chef::Knife
-    include KnifeVrealize::Base
-    include KnifeVrealize::VraBase
 
     banner 'knife vra catalog list'
 
