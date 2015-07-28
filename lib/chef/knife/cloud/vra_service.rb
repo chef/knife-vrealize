@@ -46,7 +46,7 @@ class Chef
         end
 
         def delete_server(instance_id)
-          server = server_resource(instance_id)
+          server = get_server(instance_id)
           server_summary(server)
           puts "\n"
 
@@ -77,14 +77,14 @@ class Chef
           end
         end
 
-        def server_resource(instance_id)
+        def get_server(instance_id)
           connection.resources.by_id(instance_id)
         end
 
         def server_summary(server, columns_with_info=nil)
           msg_pair('Server ID', server.id)
           msg_pair('Server Name', server.name)
-          msg_pair('IP Addresses', server.ip_addresses.join(', '))
+          msg_pair('IP Addresses', server.ip_addresses.nil? ? 'none' : server.ip_addresses.join(', '))
           msg_pair('Status', server.status)
           msg_pair('Catalog Name', server.catalog_name)
         end

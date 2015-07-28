@@ -19,7 +19,7 @@ class Chef
         # to pass to delete_from_chef rather than the resource ID
         def execute_command
           @name_args.each do |resource_id|
-            server = service.server_resource(resource_id)
+            server = service.get_server(resource_id)
             service.delete_server(resource_id)
             delete_from_chef(server.name)
           end
