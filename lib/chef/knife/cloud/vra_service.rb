@@ -36,11 +36,11 @@ class Chef
           puts "Catalog request complete.\n"
           request_summary(submitted_request)
 
-          raise CloudException::ServerCreateError, submitted_request.completion_details if submitted_request.failed?
+          raise CloudExceptions::ServerCreateError, submitted_request.completion_details if submitted_request.failed?
 
           servers = submitted_request.resources.select { |resource| resource.vm? }
-          raise CloudException::ServerCreateError, "The vRA request created more than one server, but we were only expecting 1" if servers.length > 1
-          raise CloudException::ServerCreateError, "The vRA request did not create any servers" if servers.length == 0
+          raise CloudExceptions::ServerCreateError, "The vRA request created more than one server, but we were only expecting 1" if servers.length > 1
+          raise CloudExceptions::ServerCreateError, "The vRA request did not create any servers" if servers.length == 0
 
           servers.first
         end
