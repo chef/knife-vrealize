@@ -1,3 +1,4 @@
+require 'chef/knife/cloud/exceptions'
 require 'chef/knife/cloud/service'
 require 'chef/knife/cloud/helpers'
 require 'chef/knife/cloud/vra_service_helpers'
@@ -29,8 +30,6 @@ class Chef
         end
 
         def create_server(options={})
-          puts "create_server called with #{options}"
-
           submitted_request = catalog_request(options).submit
           puts "Catalog request #{submitted_request.id} submitted."
           wait_for_request(submitted_request, options[:wait_time], options[:refresh_rate])
