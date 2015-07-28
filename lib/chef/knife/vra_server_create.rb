@@ -5,7 +5,6 @@ require 'chef/knife/cloud/server/create_options'
 require 'chef/knife/cloud/vra_service'
 require 'chef/knife/cloud/vra_service_helpers'
 require 'chef/knife/cloud/vra_service_options'
-require 'chef/knife/cloud/exceptions'
 
 class Chef
   class Knife

@@ -5,7 +5,6 @@ require 'chef/knife/cloud/server/list_options'
 require 'chef/knife/cloud/vra_service'
 require 'chef/knife/cloud/vra_service_helpers'
 require 'chef/knife/cloud/vra_service_options'
-require 'chef/knife/cloud/exceptions'
 
 class Chef
   class Knife
@@ -13,7 +12,6 @@ class Chef
       class VraServerList < ServerListCommand
         include VraServiceHelpers
         include VraServiceOptions
-        include ServerCreateOptions
 
         banner 'knife vra server list'
 
