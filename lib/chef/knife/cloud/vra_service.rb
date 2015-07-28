@@ -47,9 +47,15 @@ class Chef
 
         def delete_server(instance_id)
           server = server_resource(instance_id)
-          server_summary
-
+          server_summary(server)
           puts "\n"
+
+          if server.status == 'DELETED'
+            ui.warn("Server is already deleted.")
+            puts "\n"
+            return
+          end
+
           ui.confirm('Do you really want to delete this server')
 
           destroy_request = server.destroy
@@ -79,6 +85,7 @@ class Chef
           msg_pair('Server ID', server.id)
           msg_pair('Server Name', server.name)
           msg_pair('IP Addresses', server.ip_addresses.join(', '))
+          msg_pair('Status', server.status)
           msg_pair('Catalog Name', server.catalog_name)
         end
 
