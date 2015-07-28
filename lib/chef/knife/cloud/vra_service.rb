@@ -63,6 +63,14 @@ class Chef
           connection.resources.all_resources.select { |x| x.vm? }
         end
 
+        def list_catalog_items(entitled)
+          if entitled
+            connection.catalog.entitled_items
+          else
+            connection.catalog.all_items
+          end
+        end
+
         def server_resource(instance_id)
           connection.resources.by_id(instance_id)
         end

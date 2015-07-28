@@ -20,37 +20,33 @@ class Chef
           boolean:     true,
           default:     false
 
-        def run
-          validate_required_config!
-
-          if get_config_value(:entitled)
-            items = vra_client.catalog.entitled_items
-            items.map! { |x| x['catalogItem'] }
-          else
-            items = vra_client.catalog.all_items
-          end
-
-          if items.empty?
-            ui.warn('There are no catalog items available.')
-            exit 1
-          end
-
-          catalog_list = [
-            ui.color('Catalog ID', :bold),
-            ui.color('Name', :bold),
-            ui.color('Description', :bold),
-            ui.color('Status', :bold)
+        def before_exec_command
+          @columns_with_info = [
+            { label: 'Catalog ID',  key: 'id' },
+            { label: 'Name',        key: 'name' },
+            { label: 'Description', key: 'description' },
+            { label: 'Status',      key: 'status', value_callback: method(:format_status_value) },
+            { label: 'Subtenant',   key: 'subtenant_name' }
           ]
 
-          items.each do |item|
-            catalog_list << item['id']
-            catalog_list << item['name']
-            catalog_list << item['description']
-            catalog_list << item['statusName']
+          @sort_by_field = 'name'
+        end
+
+        def query_resource
+          @service.list_catalog_items(locate_config_value(:entitled))
+        end
+
+        def format_status_value(status)
+          status = status.downcase
+          if status == 'published'
+            color = :green
+          else
+            color = :red
           end
 
-          puts ui.list(catalog_list, :uneven_columns_across, 4)
+          ui.color(status, color)
         end
+
       end
     end
   end
