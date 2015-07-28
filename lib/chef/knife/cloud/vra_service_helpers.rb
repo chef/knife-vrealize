@@ -53,6 +53,11 @@ class Chef
             raise
           end
         end
+
+        def print_array_with_commas(array)
+          return if array.nil?
+          array.join(', ')
+        end
       end
     end
   end

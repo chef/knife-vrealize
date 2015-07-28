@@ -60,6 +60,10 @@ class Chef
           request_summary(destroy_request)
         end
 
+        def list_servers
+          connection.resources.all_resources.select { |x| x.vm? }
+        end
+
         def server_resource(instance_id)
           connection.resources.by_id(instance_id)
         end

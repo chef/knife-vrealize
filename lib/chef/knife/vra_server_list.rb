@@ -1,36 +1,46 @@
 require 'chef/knife'
 
-module KnifeVrealize
-  class VraServerList < Chef::Knife
+require 'chef/knife/cloud/server/list_command'
+require 'chef/knife/cloud/server/list_options'
+require 'chef/knife/cloud/vra_service'
+require 'chef/knife/cloud/vra_service_helpers'
+require 'chef/knife/cloud/vra_service_options'
+require 'chef/knife/cloud/exceptions'
 
-    banner 'knife vra server list'
+class Chef
+  class Knife
+    class Cloud
+      class VraServerList < ServerListCommand
+        include VraServiceHelpers
+        include VraServiceOptions
+        include ServerCreateOptions
 
-    def run
-      validate_required_config!
+        banner 'knife vra server list'
 
-      servers = vra_client.resources.all_resources
-      servers.select! { |x| x.vm? }
+        def before_exec_command
+          @columns_with_info = [
+            { label: 'Resource ID',  key: 'id' },
+            { label: 'Name',         key: 'name' },
+            { label: 'Status',       key: 'status', value_callback: method(:format_status_value) },
+            { label: 'Catalog Name', key: 'catalog_name'}
+          ]
 
-      if servers.empty?
-        ui.warn('No servers found.')
-        exit 1
+          @sort_by_field = 'name'
+        end
+
+        def format_status_value(status)
+          status = status.downcase
+          status_color = case status
+                         when 'active'
+                           :green
+                         when 'deleted'
+                           :red
+                         else
+                           :yellow
+                         end
+          ui.color(status, status_color)
+        end
       end
-
-      server_list = [
-        ui.color('Name', :bold),
-        ui.color('Resource ID', :bold),
-        ui.color('Status', :bold),
-        ui.color('Catalog Name', :bold)
-      ]
-
-      servers.sort { |a, b| a.name <=> b.name }.each do |server|
-        server_list << server.name
-        server_list << server.id
-        server_list << server.status
-        server_list << server.catalog_name
-      end
-
-      puts ui.list(server_list, :uneven_columns_across, 4)
     end
   end
 end
