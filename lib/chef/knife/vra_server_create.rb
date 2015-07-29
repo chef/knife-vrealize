@@ -1,5 +1,4 @@
 require 'chef/knife'
-
 require 'chef/knife/cloud/server/create_command'
 require 'chef/knife/cloud/server/create_options'
 require 'chef/knife/cloud/vra_service'

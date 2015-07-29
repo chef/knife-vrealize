@@ -31,9 +31,9 @@ class Chef
 
         def create_server(options={})
           submitted_request = catalog_request(options).submit
-          puts "Catalog request #{submitted_request.id} submitted."
+          ui.msg("Catalog request #{submitted_request.id} submitted.")
           wait_for_request(submitted_request, options[:wait_time], options[:refresh_rate])
-          puts "Catalog request complete.\n"
+          ui.msg("Catalog request complete.\n")
           request_summary(submitted_request)
 
           raise CloudExceptions::ServerCreateError, submitted_request.completion_details if submitted_request.failed?
@@ -48,20 +48,20 @@ class Chef
         def delete_server(instance_id)
           server = get_server(instance_id)
           server_summary(server)
-          puts "\n"
+          ui.msg('')
 
           if server.status == 'DELETED'
             ui.warn("Server is already deleted.")
-            puts "\n"
+            ui.msg('')
             return
           end
 
           ui.confirm('Do you really want to delete this server')
 
           destroy_request = server.destroy
-          puts "Destroy request #{destroy_request.id} submitted."
+          ui.msg("Destroy request #{destroy_request.id} submitted.")
           wait_for_request(destroy_request)
-          puts "Destroy request complete."
+          ui.msg('Destroy request complete.')
           request_summary(destroy_request)
         end
 
@@ -90,11 +90,11 @@ class Chef
         end
 
         def request_summary(request)
-          puts "\n"
+          ui.msg('')
           msg_pair('Request Status', request.status)
           msg_pair('Completion State', request.completion_state)
           msg_pair('Completion Details', request.completion_details)
-          puts "\n"
+          ui.msg('')
         end
 
         def catalog_request(options)
@@ -115,7 +115,6 @@ class Chef
 
           catalog_request
         end
-
       end
     end
   end

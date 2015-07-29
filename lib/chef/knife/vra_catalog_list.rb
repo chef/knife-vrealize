@@ -1,5 +1,4 @@
 require 'chef/knife'
-
 require 'chef/knife/cloud/list_resource_command'
 require 'chef/knife/cloud/vra_service'
 require 'chef/knife/cloud/vra_service_helpers'
@@ -46,7 +45,6 @@ class Chef
 
           ui.color(status, color)
         end
-
       end
     end
   end

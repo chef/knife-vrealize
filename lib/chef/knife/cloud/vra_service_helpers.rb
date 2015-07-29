@@ -45,18 +45,13 @@ class Chef
               end
             end
           rescue Timeout::Error
-            puts "\n"
-            ui.error "Request did not complete in #{wait_time} seconds."
+            ui.msg('')
+            ui.error("Request did not complete in #{wait_time} seconds.")
             exit 1
           rescue
             # re-raise any non-timeout-related error
             raise
           end
-        end
-
-        def print_array_with_commas(array)
-          return if array.nil?
-          array.join(', ')
         end
       end
     end
