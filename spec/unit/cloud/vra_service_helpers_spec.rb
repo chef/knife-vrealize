@@ -1,3 +1,21 @@
+#
+# Author:: Chef Partner Engineering (<partnereng@chef.io>)
+# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# License:: Apache License, Version 2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 require 'spec_helper'
 require 'chef/knife'
 require 'chef/knife/cloud/vra_service'
@@ -96,6 +114,35 @@ describe 'Chef::Knife::Cloud::VraServiceHelpers' do
         request = double('request')
         allow(request).to receive(:refresh).and_raise(RuntimeError)
         expect { subject.wait_for_request(request) }.to raise_error(RuntimeError)
+      end
+    end
+  end
+
+  describe '#validate!' do
+    it 'calls checks for empty VRA connection configuration values' do
+      expect(subject).to receive(:check_for_missing_config_values!)
+        .with(:vra_username, :vra_password, :vra_base_url, :vra_tenant)
+
+      subject.validate!
+    end
+  end
+
+  describe '#check_for_missing_config_values!' do
+    context 'when all values exist' do
+      it 'does not raise an error' do
+        allow(subject).to receive(:locate_config_value).with(:key1).and_return('value')
+        allow(subject).to receive(:locate_config_value).with(:key2).and_return('value')
+        expect(subject.ui).not_to receive(:error)
+        expect { subject.check_for_missing_config_values!(:key1, :key2) }.not_to raise_error
+      end
+    end
+
+    context 'when a value does not exist' do
+      it 'prints an error and exits' do
+        allow(subject).to receive(:locate_config_value).with(:key1).and_return('value')
+        allow(subject).to receive(:locate_config_value).with(:key2).and_return(nil)
+        expect(subject.ui).to receive(:error)
+        expect { subject.check_for_missing_config_values!(:key1, :key2) }.to raise_error(SystemExit)
       end
     end
   end
