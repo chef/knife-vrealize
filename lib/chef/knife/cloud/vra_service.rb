@@ -38,9 +38,9 @@ class Chef
 
           raise CloudExceptions::ServerCreateError, submitted_request.completion_details if submitted_request.failed?
 
-          servers = submitted_request.resources.select { |resource| resource.vm? }
-          raise CloudExceptions::ServerCreateError, "The vRA request created more than one server, but we were only expecting 1" if servers.length > 1
-          raise CloudExceptions::ServerCreateError, "The vRA request did not create any servers" if servers.length == 0
+          servers = submitted_request.resources.select(&:vm?)
+          raise CloudExceptions::ServerCreateError, 'The vRA request created more than one server, but we were only expecting 1' if servers.length > 1
+          raise CloudExceptions::ServerCreateError, 'The vRA request did not create any servers' if servers.length == 0
 
           servers.first
         end
@@ -51,7 +51,7 @@ class Chef
           ui.msg('')
 
           if server.status == 'DELETED'
-            ui.warn("Server is already deleted.")
+            ui.warn('Server is already deleted.')
             ui.msg('')
             return
           end
@@ -66,7 +66,7 @@ class Chef
         end
 
         def list_servers
-          connection.resources.all_resources.select { |x| x.vm? }
+          connection.resources.all_resources.select(&:vm?)
         end
 
         def list_catalog_items(entitled)
@@ -81,7 +81,7 @@ class Chef
           connection.resources.by_id(instance_id)
         end
 
-        def server_summary(server, columns_with_info=nil)
+        def server_summary(server, _columns_with_info=nil)
           msg_pair('Server ID', server.id)
           msg_pair('Server Name', server.name)
           msg_pair('IP Addresses', server.ip_addresses.nil? ? 'none' : server.ip_addresses.join(', '))

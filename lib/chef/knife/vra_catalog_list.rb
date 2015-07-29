@@ -14,10 +14,10 @@ class Chef
         banner 'knife vra catalog list'
 
         option :entitled,
-          long:        '--entitled-only',
-          description: 'only list entitled vRA catalog entries',
-          boolean:     true,
-          default:     false
+               long:        '--entitled-only',
+               description: 'only list entitled vRA catalog entries',
+               boolean:     true,
+               default:     false
 
         def before_exec_command
           @columns_with_info = [

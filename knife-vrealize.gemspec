@@ -5,19 +5,19 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'knife-vrealize/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "knife-vrealize"
+  spec.name          = 'knife-vrealize'
   spec.version       = KnifeVrealize::VERSION
-  spec.authors       = ["Adam Leff"]
-  spec.email         = ["aleff@chef.io"]
-  spec.summary       = %q{Knife plugin to interact with VMware vRealize.}
+  spec.authors       = ['Chef Partner Engineering']
+  spec.email         = ['partnereng@chef.io']
+  spec.summary       = 'Knife plugin to interact with VMware vRealize.'
   spec.description   = spec.summary
-  spec.homepage      = "http://gihub.com/chef-partners/knife-vrealize"
-  spec.license       = "Apache 2.0"
+  spec.homepage      = 'http://gihub.com/chef-partners/knife-vrealize'
+  spec.license       = 'Apache 2.0'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   spec.add_dependency 'chef',         '~> 12.0'
   spec.add_dependency 'knife-cloud',  '~> 1.2.0'

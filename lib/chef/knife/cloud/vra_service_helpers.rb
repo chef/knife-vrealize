@@ -15,7 +15,7 @@ class Chef
         end
 
         def verify_ssl?
-          ! locate_config_value(:vra_disable_ssl_verify)
+          !locate_config_value(:vra_disable_ssl_verify)
         end
 
         def wait_for_request(request, wait_time=600, refresh_rate=2)

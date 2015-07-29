@@ -3,10 +3,11 @@ require 'chef/knife/cloud/fog/options'
 class Chef
   class Knife
     class Cloud
+      # rubocop:disable Style/AlignParameters
       module VraServiceOptions
         def self.included(includer)
           includer.class_eval do
-            option :vra_base_url, 
+            option :vra_base_url,
               long:        '--vra-base-url API_URL',
               description: 'URL for the vRA server'
 
@@ -28,7 +29,7 @@ class Chef
               long:        '--request-refresh-rate SECS',
               description: 'Number of seconds to sleep between each check of the request status, defaults to 2',
               default:     2,
-              proc:        Proc.new { |secs| secs.to_i }
+              proc:        proc { |secs| secs.to_i }
           end
         end
       end

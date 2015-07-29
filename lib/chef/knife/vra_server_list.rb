@@ -20,7 +20,7 @@ class Chef
             { label: 'Resource ID',  key: 'id' },
             { label: 'Name',         key: 'name' },
             { label: 'Status',       key: 'status', value_callback: method(:format_status_value) },
-            { label: 'Catalog Name', key: 'catalog_name'}
+            { label: 'Catalog Name', key: 'catalog_name' }
           ]
 
           @sort_by_field = 'name'

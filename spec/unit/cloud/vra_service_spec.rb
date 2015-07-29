@@ -25,7 +25,7 @@ describe Chef::Knife::Cloud::VraService do
 
   describe '#create_server' do
     before(:each) do
-      allow(subject.ui).to receive(:msg).with("Catalog request 1 submitted.")
+      allow(subject.ui).to receive(:msg).with('Catalog request 1 submitted.')
       allow(subject.ui).to receive(:msg).with("Catalog request complete.\n")
     end
 
@@ -117,7 +117,6 @@ describe Chef::Knife::Cloud::VraService do
     context 'when the server is already deleted' do
       it 'does not call #destroy on the server object' do
         server = double('server', status: 'DELETED')
-        destroy_request = double('destroy_request', id: 1)
         expect(subject).to receive(:get_server).with('12345').and_return(server)
         expect(subject).to receive(:server_summary).with(server)
         expect(subject.ui).to receive(:warn).with('Server is already deleted.')
@@ -225,7 +224,7 @@ describe Chef::Knife::Cloud::VraService do
                                 requested_for: 'myuser@corp.local',
                                 vra_extra_params: {
                                   'key1' => { type: 'string', value: 'value1' },
-                                  'key2' => { type: 'integer', value: '2' },
+                                  'key2' => { type: 'integer', value: '2' }
                                 })
       end
     end
