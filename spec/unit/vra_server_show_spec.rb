@@ -33,7 +33,7 @@ describe Chef::Knife::Cloud::VraServerShow do
     end
 
     context 'when more than one resource is supplied' do
-      let(:command) { Chef::Knife::Cloud::VraServerShow.new(%w( 12345 54321)) }
+      let(:command) { Chef::Knife::Cloud::VraServerShow.new(%w(12345 54321)) }
       it 'prints an error and exits' do
         expect(command.ui).to receive(:error)
         expect { command.validate_params! }.to raise_error(SystemExit)
