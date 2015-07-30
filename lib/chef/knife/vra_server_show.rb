@@ -33,7 +33,6 @@ class Chef
 
         banner 'knife vra server show RESOURCE_ID (options)'
 
-        # rubocop:disable Style/GuardClause
         def validate_params!
           if @name_args.empty?
             ui.error('You must supply a Resource ID for a server to display.')
@@ -44,6 +43,8 @@ class Chef
             ui.error('You may only supply one Resource ID.')
             exit 1
           end
+
+          super
         end
       end
     end
