@@ -104,6 +104,8 @@ class Chef
           msg_pair('IP Addresses', server.ip_addresses.nil? ? 'none' : server.ip_addresses.join(', '))
           msg_pair('Status', server.status)
           msg_pair('Catalog Name', server.catalog_name)
+          msg_pair('Owner IDs', server.owner_ids.empty? ? 'none' : server.owner_ids.join(', '))
+          msg_pair('Owner Names', server.owner_names.empty? ? 'none' : server.owner_names.join(', '))
         end
 
         def request_summary(request)
