@@ -104,7 +104,8 @@ describe 'Chef::Knife::Cloud::VraServiceHelpers' do
         request = double('request')
         allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
         expect(subject.ui).to receive(:msg).with('')
-        expect(subject.ui).to receive(:error).with('Request did not complete in 600 seconds.')
+        expect(subject.ui).to receive(:error)
+          .with('Request did not complete in 600 seconds. Check the Requests tab in the vRA UI for more information.')
         expect { subject.wait_for_request(request) }.to raise_error(SystemExit)
       end
     end
