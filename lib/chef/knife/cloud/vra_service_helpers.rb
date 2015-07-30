@@ -64,7 +64,7 @@ class Chef
             end
           rescue Timeout::Error
             ui.msg('')
-            ui.error("Request did not complete in #{wait_time} seconds.")
+            ui.error("Request did not complete in #{wait_time} seconds. Check the Requests tab in the vRA UI for more information.")
             exit 1
           end
         end
