@@ -1,7 +1,9 @@
 # knife-vrealize
 
-This is a work-in-progress Knife plugin that will allow you to interact with 
+This is a Knife plugin that will allow you to interact with 
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
+
+The initial release of this plugin supports vRA.
 
 ## Installation
 
@@ -19,7 +21,7 @@ Or install it yourself as:
 
     $ gem install knife-vrealize
 
-... or, even better, from within Chef DK:
+... or, even better, from within ChefDK:
 
     $ chef gem install knife-vrealize
 

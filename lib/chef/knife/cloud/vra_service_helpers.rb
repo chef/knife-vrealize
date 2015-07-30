@@ -66,9 +66,6 @@ class Chef
             ui.msg('')
             ui.error("Request did not complete in #{wait_time} seconds.")
             exit 1
-          rescue
-            # re-raise any non-timeout-related error
-            raise
           end
         end
 

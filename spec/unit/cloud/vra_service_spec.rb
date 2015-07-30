@@ -137,7 +137,7 @@ describe Chef::Knife::Cloud::VraService do
         server = double('server', status: 'DELETED')
         expect(subject).to receive(:get_server).with('12345').and_return(server)
         expect(subject).to receive(:server_summary).with(server)
-        expect(subject.ui).to receive(:warn).with('Server is already deleted.')
+        expect(subject.ui).to receive(:warn).with("Server is already deleted.\n")
         expect(server).not_to receive(:destroy)
 
         subject.delete_server('12345')

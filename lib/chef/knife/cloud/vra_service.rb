@@ -69,8 +69,7 @@ class Chef
           ui.msg('')
 
           if server.status == 'DELETED'
-            ui.warn('Server is already deleted.')
-            ui.msg('')
+            ui.warn("Server is already deleted.\n")
             return
           end
 
