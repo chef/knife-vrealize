@@ -44,7 +44,7 @@ class Chef
 
         option :requested_for,
                long:        '--requested-for LOGIN',
-               description: 'The login to list as the owner of this resource.  Will default to the vra_username parameter'
+               description: 'The login to list as the owner of this resource. Will default to the vra_username parameter'
 
         option :subtenant_id,
                long:        '--subtenant-id ID',
@@ -61,7 +61,7 @@ class Chef
 
         option :extra_params,
                long:        '--extra-param KEY=TYPE:VALUE',
-               description: 'Additional parameters to pass to vRA for this catalog request.  TYPE must be "string" or "integer". ' \
+               description: 'Additional parameters to pass to vRA for this catalog request. TYPE must be "string" or "integer". ' \
                  'Can be used multiple times.',
                default:     {},
                proc:        proc { |param|
