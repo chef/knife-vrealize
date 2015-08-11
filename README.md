@@ -1,6 +1,6 @@
 # knife-vrealize
 
-This is a Knife plugin that will allow you to interact with 
+This is a Knife plugin that will allow you to interact with
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
 
 The initial release of this plugin supports vRA.
@@ -34,7 +34,7 @@ knife[:vra_username] = 'myuser'
 knife[:vra_password] = 'mypassword'
 knife[:vra_base_url] = 'https://vra.corp.local'
 knife[:vra_tenant]   = 'mytenant'
-``` 
+```
 
 ... or you can supply them on the command-line:
 
@@ -46,7 +46,7 @@ knife vra command --vra-username myuser --vra-tenant mytenant ...
 
 ### knife vra catalog list
 
-Lists catalog items that can be used to submit machine requests.  By default, it will list all catalog items that your user has permission to see.  To limit it to only items to which you are entitled, supply the `--entitled` flag.
+Lists catalog items that can be used to submit machine requests. By default, it will list all catalog items that your user has permission to see. To limit it to only items to which you are entitled, supply the `--entitled` flag.
 
 ```
 $ knife vra catalog list
@@ -58,7 +58,7 @@ d29efd6b-3cd6-4f8d-b1d8-da4ddd4e52b1  WindowsServer2012            Windows Serve
 
 ### knife vra server list
 
-Lists all machine resources that your user has permission to see.  The "resource ID" is needed for other commands, such as `knife vra server show` and `knife vra server destroy`
+Lists all machine resources that your user has permission to see. The "resource ID" is needed for other commands, such as `knife vra server show` and `knife vra server destroy`
 
 ```
 $ knife vra server list
@@ -83,9 +83,9 @@ Catalog Name: CentOS 6.6
 
 ### knife vra server create CATALOG_ID (options)
 
-Creates a server from a catalog blueprint.  Find the catalog ID with the `knife vra catalog list` command.  After the resource is created, knife will attempt to bootstrap it (install chef, run chef-client for the first time, etc.).
+Creates a server from a catalog blueprint. Find the catalog ID with the `knife vra catalog list` command. After the resource is created, knife will attempt to bootstrap it (install chef, run chef-client for the first time, etc.).
 
-Each blueprint may require different parameters to successfully complete provisioning.  See your vRA administrator with questions.  We'll do our best to give you any helpful error messages from vRA if they're available to us.
+Each blueprint may require different parameters to successfully complete provisioning. See your vRA administrator with questions. We'll do our best to give you any helpful error messages from vRA if they're available to us.
 
 Common parameters to specify are:
 
@@ -94,7 +94,7 @@ Common parameters to specify are:
  * `--requested-for`: vRA login that should be listed as the owner
  * `--lease-days`: number of days for the resource lease
  * `--notes`: any optional notes you'd like to be logged with your request
- * `--subtenant-id`: all resources must be tied back to a Business Group, or "subtenant." If your catalog item is tied to a specific Business Group, you do not need to specify this.  However, if your catalog item is a global catalog item, then the subtenant ID is not available to us; you will need to provide it.  It usually looks like a UUID.  See your vRA administrator for assistance in determining your subtenant ID.
+ * `--subtenant-id`: all resources must be tied back to a Business Group, or "subtenant." If your catalog item is tied to a specific Business Group, you do not need to specify this. However, if your catalog item is a global catalog item, then the subtenant ID is not available to us; you will need to provide it. It usually looks like a UUID. See your vRA administrator for assistance in determining your subtenant ID.
  * `--ssh-password`: if a linux host, the password to use during bootstrap
  * `--winrm-password`: if a windows host, the password to use during bootstrap
 
@@ -109,7 +109,7 @@ Current request status: IN_PROGRESS..
 
 ### knife vra server delete RESOURCE_ID
 
-Deletes a server from vRA.  If you supply `--purge`, the server will also be removed from the Chef Server.
+Deletes a server from vRA. If you supply `--purge`, the server will also be removed from the Chef Server.
 
 ```
 $ bundle exec knife vra server delete 2e1f6632-1613-41d1-a07c-6137c9639609 --purge
@@ -129,7 +129,7 @@ Current request status: IN_PROGRESS...
 
 ## Contributing
 
-We'd love to hear from you if you find this isn't working in your VMware vRA environment.  Please submit a GitHub issue with any problems you encounter.
+We'd love to hear from you if you find this isn't working in your VMware vRA environment. Please submit a GitHub issue with any problems you encounter.
 
 Additionally, contributions are welcome!  If you'd like to send up any fixes or changes:
 
