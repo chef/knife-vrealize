@@ -3,8 +3,6 @@
 This is a Knife plugin that will allow you to interact with
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
 
-The initial release of this plugin supports vRA.
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -25,7 +23,9 @@ Or install it yourself as:
 
     $ chef gem install knife-vrealize
 
-## Configuration
+## vRealize Automation (vRA)
+
+### Configuration
 
 In order to communicate with vRA, you must specify your user credentials. You can specify them in your knife.rb:
 
@@ -42,9 +42,9 @@ knife[:vra_tenant]   = 'mytenant'
 knife vra command --vra-username myuser --vra-tenant mytenant ...
 ```
 
-## Usage
+### Usage
 
-### knife vra catalog list
+#### knife vra catalog list
 
 Lists catalog items that can be used to submit machine requests. By default, it will list all catalog items that your user has permission to see. To limit it to only items to which you are entitled, supply the `--entitled` flag.
 
@@ -56,7 +56,7 @@ a9cd6148-6e0b-4a80-ac47-f5255c52b43d  CentOS 6.6                   Blueprint for
 d29efd6b-3cd6-4f8d-b1d8-da4ddd4e52b1  WindowsServer2012            Windows Server 2012 with the latest updates and patches.   published
 ```
 
-### knife vra server list
+#### knife vra server list
 
 Lists all machine resources that your user has permission to see. The "resource ID" is needed for other commands, such as `knife vra server show` and `knife vra server destroy`
 
@@ -68,7 +68,7 @@ Resource ID                           Name        Status  Catalog Name
 0977f98b-d927-4e71-8b5b-b27c7deda097  hol-dev-45  active  CentOS 6.6
 ```
 
-### knife vra server show RESOURCE_ID
+#### knife vra server show RESOURCE_ID
 
 Displays additional information about an individual server, such as its IP addresses.
 
@@ -81,7 +81,7 @@ Status: ACTIVE
 Catalog Name: CentOS 6.6
 ```
 
-### knife vra server create CATALOG_ID (options)
+#### knife vra server create CATALOG_ID (options)
 
 Creates a server from a catalog blueprint. Find the catalog ID with the `knife vra catalog list` command. After the resource is created, knife will attempt to bootstrap it (install chef, run chef-client for the first time, etc.).
 
@@ -107,12 +107,12 @@ Current request status: IN_PROGRESS..
 ...
 ```
 
-### knife vra server delete RESOURCE_ID
+#### knife vra server delete RESOURCE_ID
 
 Deletes a server from vRA. If you supply `--purge`, the server will also be removed from the Chef Server.
 
 ```
-$ bundle exec knife vra server delete 2e1f6632-1613-41d1-a07c-6137c9639609 --purge
+$ knife vra server delete 2e1f6632-1613-41d1-a07c-6137c9639609 --purge
 Server ID: 2e1f6632-1613-41d1-a07c-6137c9639609
 Server Name: hol-dev-43
 IP Addresses: 192.168.110.203
@@ -127,9 +127,47 @@ Current request status: IN_PROGRESS...
 ...
 ```
 
+## vRealize Orchestrator (vRO)
+
+### Configuration
+
+In order to communicate with vRA, you must specify your user credentials. You can specify them in your knife.rb:
+
+```ruby
+knife[:vro_username] = 'myuser'
+knife[:vro_password] = 'mypassword'
+knife[:vro_base_url] = 'https://vra.corp.local:8281'
+```
+
+... or you can supply them on the command-line:
+
+```
+knife vro command --vro-username myuser ...
+```
+
+### Usage
+
+### knife vro workflow execute
+
+Executes a vRO workflow.  Requires the workflow name.  You may supply any input parameters, as well.
+
+```
+$ knife vro workflow execute "knife testing" key1=value1
+Starting workflow execution...
+Workflow execution 4028eece4effc046014f27da864d0187 started. Waiting for it to complete...
+Workflow execution complete.
+
+Output Parameters:
+outkey1: some value (string)
+
+Workflow Execution Log:
+2015-08-13 09:17:57 -0700 info: cloudadmin: Workflow 'Knife Testing' has started
+2015-08-13 09:17:58 -0700 info: cloudadmin: Workflow 'Knife Testing' has completed
+```
+
 ## Contributing
 
-We'd love to hear from you if you find this isn't working in your VMware vRA environment. Please submit a GitHub issue with any problems you encounter.
+We'd love to hear from you if you find this isn't working in your VMware vRA/vRO environment. Please submit a GitHub issue with any problems you encounter.
 
 Additionally, contributions are welcome!  If you'd like to send up any fixes or changes:
 
