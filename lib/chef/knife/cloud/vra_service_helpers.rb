@@ -39,7 +39,7 @@ class Chef
         def wait_for_request(request, wait_time=600, refresh_rate=2)
           print 'Waiting for request to complete.'
 
-          last_status  = ''
+          last_status = ''
 
           begin
             Timeout.timeout(wait_time) do
