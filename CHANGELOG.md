@@ -1,5 +1,8 @@
 # knife-vrealize Change Log
 
+## Release: v1.1.0
+ * new "vro workflow execute" command to allow arbitrary workflow executions via knife
+
 ## Release: v1.0.1
  * remove release-candidate restriction from the version pin for the vmware-vra gem
 
