@@ -165,6 +165,11 @@ Workflow Execution Log:
 2015-08-13 09:17:58 -0700 info: cloudadmin: Workflow 'Knife Testing' has completed
 ```
 
+If your workflow name is not unique in your vRO workflow list, you can specify
+a specific workflow to use with `--vro-workflow-id ID`.  You can find the
+workflow ID from within the vRO UI.  However, a workflow name is still required
+by the API.
+
 ## Contributing
 
 We'd love to hear from you if you find this isn't working in your VMware vRA/vRO environment. Please submit a GitHub issue with any problems you encounter.
