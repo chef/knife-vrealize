@@ -46,6 +46,11 @@ class Chef
                long:        '--requested-for LOGIN',
                description: 'The login to list as the owner of this resource. Will default to the vra_username parameter'
 
+        option :server_create_timeout,
+               long:        '--server-create-timeout SECONDS',
+               description: 'number of seconds to wait for the server to complete',
+               default:     600
+
         option :subtenant_id,
                long:        '--subtenant-id ID',
                description: 'The subtenant ID (a.k.a "business group") to list as the owner of this resource. ' \
