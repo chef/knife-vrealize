@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['partnereng@chef.io']
   spec.summary       = 'Knife plugin to interact with VMware vRealize.'
   spec.description   = spec.summary
-  spec.homepage      = 'https://gihub.com/chef-partners/knife-vrealize'
+  spec.homepage      = 'https://github.com/chef-partners/knife-vrealize'
   spec.license       = 'Apache 2.0'
 
   spec.files         = `git ls-files -z`.split("\x0")
