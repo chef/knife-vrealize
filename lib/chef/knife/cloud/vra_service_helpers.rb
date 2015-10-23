@@ -25,10 +25,11 @@ class Chef
         include Chef::Knife::Cloud::Helpers
 
         def create_service_instance
-          Chef::Knife::Cloud::VraService.new(username: locate_config_value(:vra_username),
-                                             password: locate_config_value(:vra_password),
-                                             base_url: locate_config_value(:vra_base_url),
-                                             tenant:   locate_config_value(:vra_tenant),
+          Chef::Knife::Cloud::VraService.new(username:  locate_config_value(:vra_username),
+                                             password:  locate_config_value(:vra_password),
+                                             base_url:  locate_config_value(:vra_base_url),
+                                             tenant:    locate_config_value(:vra_tenant),
+                                             page_size: locate_config_value(:vra_page_size),
                                              verify_ssl: verify_ssl?)
         end
 

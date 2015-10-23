@@ -35,6 +35,7 @@ class Chef
           @base_url   = options[:base_url]
           @tenant     = options[:tenant]
           @verify_ssl = options[:verify_ssl]
+          @page_size  = options[:page_size]
         end
 
         def connection
@@ -43,6 +44,7 @@ class Chef
             username:   @username,
             password:   @password,
             tenant:     @tenant,
+            page_size:  @page_size,
             verify_ssl: @verify_ssl
           )
         end
