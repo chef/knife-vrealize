@@ -1,5 +1,8 @@
 # knife-vrealize Change Log
 
+## Release: v1.3.0
+ * [pr#8](https://github.com/chef-partners/knife-vrealize/pull/8) Allow configuration of pagination result set size to work around known vRA pagination bug.
+
 ## Release: v1.2.0
  * [pr#6](https://github.com/chef-partners/knife-vrealize/pull/6) Fixing issue with --server-create-timeout not being honored
 
