@@ -127,6 +127,15 @@ Current request status: IN_PROGRESS...
 ...
 ```
 
+### Known Issue: Pagination
+
+A bug in vRA v6 (as late as v6.2.1) causes resource/server lists to potentially return duplicate items and omit items in the returned data. This appears to be a bug in the pagination code in vRA and was initially discovered and discussed [in this GitHub issue](https://github.com/chef-partners/vmware-vra-gem/issues/10). `knife-vrealize` tries to work around this by setting a higher-than-normal page size of 200 items.  However, if you have more items in your returned data than this, you can attempt to work around this further by using:
+
+```
+--page-size NUMBER_OF_ITEMS_PER_PAGE
+```
+
+
 ## vRealize Orchestrator (vRO)
 
 ### Configuration
