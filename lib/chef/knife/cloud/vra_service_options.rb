@@ -41,6 +41,12 @@ class Chef
               boolean:     true,
               default:     false
 
+            option :vra_page_size,
+              long:        '--page-size NUM_OF_ITEMS',
+              description: 'Maximum number of items to fetch from the vRA API when pagination is forced',
+              default:     200,
+              proc:        proc { |page_size| page_size.to_i }
+
             option :request_refresh_rate,
               long:        '--request-refresh-rate SECS',
               description: 'Number of seconds to sleep between each check of the request status, defaults to 2',

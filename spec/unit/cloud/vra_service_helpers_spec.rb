@@ -39,6 +39,7 @@ describe 'Chef::Knife::Cloud::VraServiceHelpers' do
       allow(subject).to receive(:locate_config_value).with(:vra_password).and_return('mypassword')
       allow(subject).to receive(:locate_config_value).with(:vra_base_url).and_return('https://vra.corp.local')
       allow(subject).to receive(:locate_config_value).with(:vra_tenant).and_return('mytenant')
+      allow(subject).to receive(:locate_config_value).with(:vra_page_size).and_return(50)
       allow(subject).to receive(:locate_config_value).with(:vra_disable_ssl_verify).and_return(false)
 
       expect(Chef::Knife::Cloud::VraService).to receive(:new)
@@ -46,6 +47,7 @@ describe 'Chef::Knife::Cloud::VraServiceHelpers' do
               password:   'mypassword',
               base_url:   'https://vra.corp.local',
               tenant:     'mytenant',
+              page_size:  50,
               verify_ssl: true)
 
       subject.create_service_instance
