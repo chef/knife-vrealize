@@ -115,13 +115,10 @@ class Chef
         def extra_params
           return unless Chef::Config[:knife][:vra_extra_params]
 
-          params = []
-          Chef::Config[:knife][:vra_extra_params].each do |key, value_str|
+          Chef::Config[:knife][:vra_extra_params].each_with_object([]) do |(key, value_str), memo|
             type, value = value_str.split(':')
-            params << { key: key, type: type, value: value }
+            memo << { key: key, type: type, value: value }
           end
-
-          params
         end
 
         def validate_extra_params!
