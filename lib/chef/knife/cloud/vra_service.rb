@@ -128,9 +128,9 @@ class Chef
           catalog_request.notes         = options[:notes]         unless options[:notes].nil?
           catalog_request.subtenant_id  = options[:subtenant_id]  unless options[:subtenant_id].nil?
 
-          if options[:vra_extra_params]
-            options[:vra_extra_params].each do |key, value_data|
-              catalog_request.set_parameter(key, value_data[:type], value_data[:value])
+          if options[:extra_params]
+            options[:extra_params].each do |param|
+              catalog_request.set_parameter(param[:key], param[:type], param[:value])
             end
           end
 

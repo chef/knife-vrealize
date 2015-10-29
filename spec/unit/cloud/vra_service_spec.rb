@@ -240,10 +240,10 @@ describe Chef::Knife::Cloud::VraService do
                                 cpus: 1,
                                 memory: 512,
                                 requested_for: 'myuser@corp.local',
-                                vra_extra_params: {
-                                  'key1' => { type: 'string', value: 'value1' },
-                                  'key2' => { type: 'integer', value: '2' }
-                                })
+                                extra_params: [
+                                  { key: 'key1', type: 'string', value: 'value1' },
+                                  { key: 'key2', type: 'integer', value: '2' }
+                                ])
       end
     end
   end
