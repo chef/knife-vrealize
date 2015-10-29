@@ -1,5 +1,8 @@
 # knife-vrealize Change Log
 
+## Release: v1.3.1
+ * [pr#9](https://github.com/chef-partners/knife-vrealize/pull/9) Bug fix for handling of extra parameters, which were never properly sent to the vRA API
+
 ## Release: v1.3.0
  * [pr#8](https://github.com/chef-partners/knife-vrealize/pull/8) Allow configuration of pagination result set size to work around known vRA pagination bug.
 
