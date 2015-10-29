@@ -109,7 +109,7 @@ class Chef
           super
 
           config[:chef_node_name] = locate_config_value(:chef_node_name) ? locate_config_value(:chef_node_name) : server.name
-          config[:bootstrap_ip_address] = server.ip_addresses.first
+          config[:bootstrap_ip_address] = hostname_for_server
         end
 
         def extra_params
@@ -129,6 +129,12 @@ class Chef
             raise ArgumentError, "Invalid parameter type for #{param[:key]} - must be string or integer" unless
               param[:type] == 'string' || param[:type] == 'integer'
           end
+        end
+
+        def hostname_for_server
+          ip_address = server.ip_addresses.first
+
+          ip_address.nil? ? server.name : ip_address
         end
       end
     end
