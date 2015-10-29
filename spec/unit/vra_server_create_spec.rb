@@ -22,6 +22,10 @@ require 'support/shared_examples_for_command'
 require 'support/shared_examples_for_servercreatecommand'
 
 describe Chef::Knife::Cloud::VraServerCreate do
+  before(:each) do
+    Chef::Config.reset
+  end
+
   argv = []
   argv += %w(--cpus 1)
   argv += %w(--memory 512)
@@ -60,14 +64,33 @@ describe Chef::Knife::Cloud::VraServerCreate do
   end
 
   describe '#extra_params' do
-    it 'parses extra parameters properly' do
-      params = subject.extra_params
-      expect(params[0][:key]).to eq 'key1'
-      expect(params[0][:type]).to eq 'string'
-      expect(params[0][:value]).to eq 'value1'
-      expect(params[1][:key]).to eq 'key2'
-      expect(params[1][:type]).to eq 'integer'
-      expect(params[1][:value]).to eq '2'
+    context 'when there are no extra params' do
+      before do
+        Chef::Config[:knife][:vra_extra_params] = {}
+      end
+
+      it 'returns nil' do
+        expect(subject.extra_params).to eq(nil)
+      end
+    end
+
+    context 'when extra params are provided' do
+      before do
+        Chef::Config[:knife][:vra_extra_params] = {
+          'key1' => 'string:value1',
+          'key2' => 'integer:2'
+        }
+      end
+
+      it 'parses extra parameters properly' do
+        params = subject.extra_params
+        expect(params[0][:key]).to eq 'key1'
+        expect(params[0][:type]).to eq 'string'
+        expect(params[0][:value]).to eq 'value1'
+        expect(params[1][:key]).to eq 'key2'
+        expect(params[1][:type]).to eq 'integer'
+        expect(params[1][:value]).to eq '2'
+      end
     end
   end
 

@@ -113,7 +113,7 @@ class Chef
         end
 
         def extra_params
-          return unless Chef::Config[:knife][:vra_extra_params]
+          return if Chef::Config[:knife][:vra_extra_params].nil? || Chef::Config[:knife][:vra_extra_params].empty?
 
           Chef::Config[:knife][:vra_extra_params].each_with_object([]) do |(key, value_str), memo|
             type, value = value_str.split(':')
