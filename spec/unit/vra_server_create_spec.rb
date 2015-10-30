@@ -147,4 +147,24 @@ describe Chef::Knife::Cloud::VraServerCreate do
       end
     end
   end
+
+  describe '#hostname_for_server' do
+    let(:server)       { double('server') }
+    let(:ip_addresses) { [ '1.2.3.4' ] }
+
+    it 'returns the IP address if it exists' do
+      allow(subject).to receive(:server).and_return(server)
+      allow(server).to receive(:ip_addresses).and_return(ip_addresses)
+
+      expect(subject.hostname_for_server).to eq('1.2.3.4')
+    end
+
+    it 'returns the hostname if the IP address is missing' do
+      allow(subject).to receive(:server).and_return(server)
+      allow(server).to receive(:ip_addresses).and_return([])
+      allow(server).to receive(:name).and_return('test_name')
+
+      expect(subject.hostname_for_server).to eq('test_name')
+    end
+  end
 end
