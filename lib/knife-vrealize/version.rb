@@ -17,5 +17,5 @@
 #
 
 module KnifeVrealize
-  VERSION = '1.4.0'
+  VERSION = '1.4.0'.freeze
 end
