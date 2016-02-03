@@ -55,11 +55,11 @@ class Chef
 
         def format_status_value(status)
           status = status.downcase
-          if status == 'published'
-            color = :green
-          else
-            color = :red
-          end
+          color  = if status == 'published'
+                     :green
+                   else
+                     :red
+                   end
 
           ui.color(status, color)
         end
