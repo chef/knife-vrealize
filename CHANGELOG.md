@@ -1,5 +1,8 @@
 # knife-vrealize Change Log
 
+## Release: v1.5.1
+ * Rubcop for the rubocop gods.
+
 ## Release: v1.5.0
  * Bumped the vra-gem per issues with [SSL](https://github.com/chef-partners/vmware-vra-gem/pull/31)
 

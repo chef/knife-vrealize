@@ -33,8 +33,7 @@ describe Chef::Knife::VroWorkflowExecute do
     [ workflow_name,
       "key1=#{key1}",
       "key2=#{key2}",
-      '--vro-workflow-id', workflow_id
-    ]
+      '--vro-workflow-id', workflow_id]
   end
 
   subject { described_class.new(argv) }
@@ -185,7 +184,8 @@ describe Chef::Knife::VroWorkflowExecute do
         allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
         expect { subject.wait_for_workflow }.to raise_error(
           Timeout::Error, 'Workflow did not complete in 600 seconds. ' \
-          'Please check the vRO UI for more information.')
+                          'Please check the vRO UI for more information.' \
+        )
       end
     end
 
