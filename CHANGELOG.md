@@ -1,5 +1,8 @@
 # knife-vrealize Change Log
 
+## Release: v1.5.0
+ * Bumped the vra-gem per issues with [SSL](https://github.com/chef-partners/vmware-vra-gem/pull/31)
+
 ## Release: v1.4.0
  * [pr#10](https://github.com/chef-partners/knife-vrealize/pull/10) Added logic to prefer the IP address if it's available, but fallback to the rsource record / server name if it's not.
 
