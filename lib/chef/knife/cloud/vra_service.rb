@@ -60,7 +60,7 @@ class Chef
 
           servers = submitted_request.resources.select(&:vm?)
           raise CloudExceptions::ServerCreateError, 'The vRA request created more than one server, but we were only expecting 1' if servers.length > 1
-          raise CloudExceptions::ServerCreateError, 'The vRA request did not create any servers' if servers.length == 0
+          raise CloudExceptions::ServerCreateError, 'The vRA request did not create any servers' if servers.length.zero?
 
           servers.first
         end

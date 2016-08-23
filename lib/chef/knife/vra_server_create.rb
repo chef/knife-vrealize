@@ -26,7 +26,6 @@ require 'chef/knife/cloud/vra_service_options'
 class Chef
   class Knife
     class Cloud
-      # rubocop:disable Style/BlockDelimiters
       class VraServerCreate < ServerCreateCommand
         include VraServiceHelpers
         include VraServiceOptions
