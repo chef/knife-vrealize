@@ -1,28 +1,82 @@
-# knife-vrealize Change Log
+# Change Log
 
-## Release: v1.5.1
- * Rubcop for the rubocop gods.
+## [Unreleased](https://github.com/chef-partners/knife-vrealize/tree/v2.0.0) (2016-12-14)
 
-## Release: v1.5.0
- * Bumped the vra-gem per issues with [SSL](https://github.com/chef-partners/vmware-vra-gem/pull/31)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.5.0...v2.0.0)
 
-## Release: v1.4.0
- * [pr#10](https://github.com/chef-partners/knife-vrealize/pull/10) Added logic to prefer the IP address if it's available, but fallback to the rsource record / server name if it's not.
+**Closed issues:**
 
-## Release: v1.3.1
- * [pr#9](https://github.com/chef-partners/knife-vrealize/pull/9) Bug fix for handling of extra parameters, which were never properly sent to the vRA API
+- certificate verify failure [\#16](https://github.com/chef-partners/knife-vrealize/issues/16)
 
-## Release: v1.3.0
- * [pr#8](https://github.com/chef-partners/knife-vrealize/pull/8) Allow configuration of pagination result set size to work around known vRA pagination bug.
+**Merged pull requests:**
 
-## Release: v1.2.0
- * [pr#6](https://github.com/chef-partners/knife-vrealize/pull/6) Fixing issue with --server-create-timeout not being honored
+- v1.5.1 [\#18](https://github.com/chef-partners/knife-vrealize/pull/18) ([jjasghar](https://github.com/jjasghar))
 
-## Release: v1.1.0
- * new "vro workflow execute" command to allow arbitrary workflow executions via knife
+## [v1.5.0](https://github.com/chef-partners/knife-vrealize/tree/v1.5.0) (2016-08-02)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.4.0...v1.5.0)
 
-## Release: v1.0.1
- * remove release-candidate restriction from the version pin for the vmware-vra gem
+**Closed issues:**
 
-## Release: v1.0.0
- * Initial release with support for vRA
+- Provide a --noboostrap option [\#15](https://github.com/chef-partners/knife-vrealize/issues/15)
+- Prompt for password if not supplied [\#14](https://github.com/chef-partners/knife-vrealize/issues/14)
+- Can't create new servers [\#13](https://github.com/chef-partners/knife-vrealize/issues/13)
+- --extra-param option continually failing with Unknown field error [\#11](https://github.com/chef-partners/knife-vrealize/issues/11)
+
+**Merged pull requests:**
+
+- bumped vra gem [\#17](https://github.com/chef-partners/knife-vrealize/pull/17) ([jjasghar](https://github.com/jjasghar))
+- fixing travis notifications [\#12](https://github.com/chef-partners/knife-vrealize/pull/12) ([adamleff](https://github.com/adamleff))
+
+## [v1.4.0](https://github.com/chef-partners/knife-vrealize/tree/v1.4.0) (2015-10-30)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.3.1...v1.4.0)
+
+**Merged pull requests:**
+
+- Adding logic to fall back to the vRA resource/server name [\#10](https://github.com/chef-partners/knife-vrealize/pull/10) ([adamleff](https://github.com/adamleff))
+
+## [v1.3.1](https://github.com/chef-partners/knife-vrealize/tree/v1.3.1) (2015-10-29)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.3.0...v1.3.1)
+
+**Merged pull requests:**
+
+- Bug-fix for handling extra parameters [\#9](https://github.com/chef-partners/knife-vrealize/pull/9) ([adamleff](https://github.com/adamleff))
+
+## [v1.3.0](https://github.com/chef-partners/knife-vrealize/tree/v1.3.0) (2015-10-26)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.2.0...v1.3.0)
+
+**Merged pull requests:**
+
+- Added pagination size option and a higher-than-normal default. [\#8](https://github.com/chef-partners/knife-vrealize/pull/8) ([adamleff](https://github.com/adamleff))
+- Correct homepage in gemspec [\#7](https://github.com/chef-partners/knife-vrealize/pull/7) ([philoserf](https://github.com/philoserf))
+
+## [v1.2.0](https://github.com/chef-partners/knife-vrealize/tree/v1.2.0) (2015-09-17)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.1.0...v1.2.0)
+
+**Merged pull requests:**
+
+- Enable `--server-create-timeout` option [\#6](https://github.com/chef-partners/knife-vrealize/pull/6) ([afiune](https://github.com/afiune))
+
+## [v1.1.0](https://github.com/chef-partners/knife-vrealize/tree/v1.1.0) (2015-08-14)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.0.0...v1.1.0)
+
+**Merged pull requests:**
+
+- New "vro workflow execute" command [\#5](https://github.com/chef-partners/knife-vrealize/pull/5) ([adamleff](https://github.com/adamleff))
+- remove release candidate restriction from vmware-vra, add changelog [\#4](https://github.com/chef-partners/knife-vrealize/pull/4) ([adamleff](https://github.com/adamleff))
+- changing from 2-spaces-after-period to 1 space [\#3](https://github.com/chef-partners/knife-vrealize/pull/3) ([adamleff](https://github.com/adamleff))
+
+## [v1.0.0](https://github.com/chef-partners/knife-vrealize/tree/v1.0.0) (2015-08-07)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.0.0.rc1...v1.0.0)
+
+**Merged pull requests:**
+
+- Release v1.0.0 [\#2](https://github.com/chef-partners/knife-vrealize/pull/2) ([adamleff](https://github.com/adamleff))
+
+## [v1.0.0.rc1](https://github.com/chef-partners/knife-vrealize/tree/v1.0.0.rc1) (2015-07-30)
+**Merged pull requests:**
+
+- Initial release of the knife-vrealize plugin [\#1](https://github.com/chef-partners/knife-vrealize/pull/1) ([adamleff](https://github.com/adamleff))
+
+
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*

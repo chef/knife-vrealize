@@ -19,12 +19,14 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'chef',         '~> 12.0'
+  spec.add_dependency 'chef',         '~> 12'
   spec.add_dependency 'knife-cloud',  '~> 1.2.0'
-  spec.add_dependency 'vmware-vra',   '~> 1.7'
+  spec.add_dependency 'vmware-vra',   '~> 2'
   spec.add_dependency 'vcoworkflows', '~> 0.2'
+  spec.add_dependency 'rb-readline', '~> 0.5'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake',    '~> 10.0'
   spec.add_development_dependency 'rubocop', '~> 0.35'
+
 end
