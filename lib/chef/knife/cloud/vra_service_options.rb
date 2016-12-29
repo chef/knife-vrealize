@@ -35,6 +35,10 @@ class Chef
               long:        '--vra-password PASSWORD',
               description: 'Password to use with the vRA API'
 
+            option :vra_tenant,
+              long:        '--vra-tenant TENANT',
+              description: 'Tenant name (organization) to use with the vRA API'
+
             option :vra_disable_ssl_verify,
               long:        '--vra-disable-ssl-verify',
               description: 'Skip any SSL verification for the vRA API',
