@@ -20,6 +20,7 @@ class Chef
   class Knife
     class Cloud
       # rubocop:disable Style/AlignParameters
+      # rubocop:disable Metrics/BlockLength
       module VraServiceOptions
         def self.included(includer)
           includer.class_eval do
@@ -34,6 +35,10 @@ class Chef
             option :vra_password,
               long:        '--vra-password PASSWORD',
               description: 'Password to use with the vRA API'
+
+            option :vra_tenant,
+              long:        '--vra-tenant TENANT',
+              description: 'Tenant name (organization) to use with the vRA API'
 
             option :vra_disable_ssl_verify,
               long:        '--vra-disable-ssl-verify',
