@@ -1,7 +1,14 @@
 # Change Log
 
-## [Unreleased](https://github.com/chef-partners/knife-vrealize/tree/v2.0.0) (2016-12-14)
+## [v2.0.1](https://github.com/chef-partners/knife-vrealize/tree/v2.0.1) (2017-01-09)
 
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.0.0...v2.0.1)
+
+**Merged pull requests:**
+
+- Add --vra-tenant command line option [\#21](https://github.com/chef-partners/knife-vrealize/pull/21) ([bdiringer](https://github.com/bdiringer))
+
+## [v2.0.0](https://github.com/chef-partners/knife-vrealize/tree/v2.0.0) (2016-12-15)
 [Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v1.5.0...v2.0.0)
 
 **Closed issues:**
