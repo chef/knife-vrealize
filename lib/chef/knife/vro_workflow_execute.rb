@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -123,8 +124,10 @@ class Chef
       end
 
       def validate!
-        print_error_and_exit('The following parameters are missing but required:' \
-          "#{missing_config_parameters.join(', ')}") unless missing_config_parameters.empty?
+        unless missing_config_parameters.empty?
+          print_error_and_exit('The following parameters are missing but required:' \
+            "#{missing_config_parameters.join(', ')}")
+        end
 
         print_error_and_exit('You must supply a workflow name.') if @name_args.empty?
       end

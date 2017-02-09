@@ -1,7 +1,14 @@
 # Change Log
 
-## [v2.0.1](https://github.com/chef-partners/knife-vrealize/tree/v2.0.1) (2017-01-09)
+## [Unreleased](https://github.com/chef-partners/knife-vrealize/tree/HEAD)
 
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.0.1...HEAD)
+
+**Merged pull requests:**
+
+- Added ssl-mode verify [\#22](https://github.com/chef-partners/knife-vrealize/pull/22) ([jjasghar](https://github.com/jjasghar))
+
+## [v2.0.1](https://github.com/chef-partners/knife-vrealize/tree/v2.0.1) (2017-01-10)
 [Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.0.0...v2.0.1)
 
 **Merged pull requests:**

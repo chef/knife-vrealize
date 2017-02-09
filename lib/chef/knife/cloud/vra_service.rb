@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -128,10 +129,8 @@ class Chef
           catalog_request.notes         = options[:notes]         unless options[:notes].nil?
           catalog_request.subtenant_id  = options[:subtenant_id]  unless options[:subtenant_id].nil?
 
-          if options[:extra_params]
-            options[:extra_params].each do |param|
-              catalog_request.set_parameter(param[:key], param[:type], param[:value])
-            end
+          options[:extra_params]&.each do |param|
+            catalog_request.set_parameter(param[:key], param[:type], param[:value])
           end
 
           catalog_request
