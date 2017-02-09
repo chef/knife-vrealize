@@ -37,6 +37,9 @@ class Chef
                long:        '--cpus NUM_CPUS',
                description: 'Number of CPUs the server should have'
 
+        option :node_ssl_verify_mode,
+               long: '--node-ssl-verify-mode [peer|none]',
+               description: 'Whether or not to verify the SSL cert for all HTTPS requests when bootstrapping'
         option :memory,
                long:        '--memory RAM_IN_MB',
                description: 'Amount of RAM, in MB, the server should have'
