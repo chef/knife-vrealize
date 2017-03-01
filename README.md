@@ -34,6 +34,7 @@ knife[:vra_username] = 'myuser'
 knife[:vra_password] = 'mypassword'
 knife[:vra_base_url] = 'https://vra.corp.local'
 knife[:vra_tenant]   = 'mytenant'
+knife[:vra_disable_ssl_verify] = true # if you want to disable SSL checking.
 ```
 
 ... or you can supply them on the command-line:
