@@ -1,12 +1,20 @@
 language: ruby
 cache: bundler
 sudo: false
+
 rvm:
-- 2.1
-- 2.2
+  - 2.2
+  - 2.3.3
+  - 2.4.1
+
 branches:
   only:
   - master
+
+script:
+  - bundle exec rake style
+  - bundle exec rake spec
+
 notifications:
   slack:
     on_success: change

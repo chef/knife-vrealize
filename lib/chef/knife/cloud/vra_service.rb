@@ -129,9 +129,11 @@ class Chef
           catalog_request.notes         = options[:notes]         unless options[:notes].nil?
           catalog_request.subtenant_id  = options[:subtenant_id]  unless options[:subtenant_id].nil?
 
+          # rubocop:disable all
           options[:extra_params]&.each do |param|
             catalog_request.set_parameter(param[:key], param[:type], param[:value])
           end
+          # rubocop:enable all
 
           catalog_request
         end
