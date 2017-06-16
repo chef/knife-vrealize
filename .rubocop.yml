@@ -1,4 +1,8 @@
-Metrics/AbcSize:
+AllCops:
+  Exclude:
+    - 'spec/**/*'
+    - 'vendor/**/*'
+vendor/AbcSize:
   Max: 30
 Metrics/LineLength:
   Max: 150
