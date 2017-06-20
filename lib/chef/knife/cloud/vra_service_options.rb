@@ -27,7 +27,8 @@ class Chef
           includer.class_eval do
             option :vra_base_url,
               long:        '--vra-base-url API_URL',
-              description: 'URL for the vRA server'
+              description: 'URL for the vRA server',
+              proc:        proc { |url| url.sub(/(\/)+$/,'') }
 
             option :vra_username,
               long:        '--vra-username USERNAME',
