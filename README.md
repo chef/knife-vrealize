@@ -98,6 +98,8 @@ Common parameters to specify are:
  * `--subtenant-id`: all resources must be tied back to a Business Group, or "subtenant." If your catalog item is tied to a specific Business Group, you do not need to specify this. However, if your catalog item is a global catalog item, then the subtenant ID is not available to us; you will need to provide it. It usually looks like a UUID. See your vRA administrator for assistance in determining your subtenant ID.
  * `--ssh-password`: if a linux host, the password to use during bootstrap
  * `--winrm-password`: if a windows host, the password to use during bootstrap
+ * `--image-os-type`: windows/linux
+ * `--bootstrap-protocol`: winrm/ssh
 
 ```
 $ knife vra server create 5dcd1900-3b89-433d-8563-9606ae1249b8 --cpus 1 --memory 512 --requested-for devmgr@corp.local --ssh-password 'mypassword' --lease-days 5
