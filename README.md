@@ -100,6 +100,9 @@ Common parameters to specify are:
  * `--winrm-password`: if a windows host, the password to use during bootstrap
  * `--image-os-type`: windows/linux
  * `--bootstrap-protocol`: winrm/ssh
+ * `--server-create-timeout`: increase this if your vRa environments takes more than 10 minutes to give you a server.
+ * `--bootstrap-version`: use to tie to a specific chefdk version if your group is not current
+ * `-N`: node-name of the chef node to create. The gem will automatically create a node name with prefix `vra-` if not specified
 
 ```
 $ knife vra server create 5dcd1900-3b89-433d-8563-9606ae1249b8 --cpus 1 --memory 512 --requested-for devmgr@corp.local --ssh-password 'mypassword' --lease-days 5
