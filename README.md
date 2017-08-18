@@ -104,6 +104,25 @@ Common parameters to specify are:
  * `--bootstrap-version`: use to tie to a specific chefdk version if your group is not current
  * `-N`: node-name of the chef node to create. The gem will automatically create a node name with prefix `vra-` if not specified
 
+Most of these can be set in your `knife.rb` to simplify the command:
+```ruby
+knife[:vra_username] = 'your-username'
+knife[:vra_password] = 'your-pass'
+knife[:vra_base_url] = 'https://cloud.yourcompany.com'
+knife[:vra_tenant]   = 'your-tenant-name'
+knife[:vra_disable_ssl_verify] = true # if you want to disable SSL checking.
+knife[:subtenant_id] = 'your-subtenant-ID'
+knife[:cpus] = '2'
+knife[:memory] = '4096'
+knife[:server_create_timeout] = '1800'
+knife[:bootstrap_version] = '12.18.31' # pinning to an older version
+knife[:server_url] = chef_server_url
+knife[:requested_for] = 'your-username'
+knife[:winrm_user] = 'machine-account-name'
+knife[:winrm_password] = 'machine-account-pass'
+```
+
+
 ```
 $ knife vra server create 5dcd1900-3b89-433d-8563-9606ae1249b8 --cpus 1 --memory 512 --requested-for devmgr@corp.local --ssh-password 'mypassword' --lease-days 5
 Catalog request d282fde8-6fd2-406c-998e-328d1b659078 submitted.
