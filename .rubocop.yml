@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - 'spec/**/*'
     - 'vendor/**/*'
+  TargetRubyVersion: 2.4.1
 Metrics/AbcSize:
   Max: 30
 Metrics/LineLength:
