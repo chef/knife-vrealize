@@ -120,6 +120,7 @@ class Chef
           ui.msg('')
         end
 
+        # rubocop:disable all
         def catalog_request(options)
           catalog_request = connection.catalog.request(options[:catalog_id])
 
@@ -129,7 +130,7 @@ class Chef
           catalog_request.lease_days    = options[:lease_days]    unless options[:lease_days].nil?
           catalog_request.notes         = options[:notes]         unless options[:notes].nil?
           catalog_request.subtenant_id  = options[:subtenant_id]  unless options[:subtenant_id].nil?
-          options[:extra_params]&.each do |param|
+          options[:extra_params].each do |param|
             catalog_request.set_parameter(param[:key], param[:type], param[:value])
           end
           # rubocop:enable all
