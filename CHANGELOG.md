@@ -1,11 +1,26 @@
 # Change Log
 
-## [Unreleased](https://github.com/chef-partners/knife-vrealize/tree/HEAD)
+## [2.1.1](https://github.com/chef-partners/knife-vrealize/tree/2.1.1) (2017-08-21)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.1.0...2.1.1)
 
-[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.0.1...HEAD)
+**Closed issues:**
+
+- Driver doesn't appear to support windows yet [\#29](https://github.com/chef-partners/knife-vrealize/issues/29)
+- knife\[:vra\_base\_url\] causes an error if URL has a trailing slash [\#24](https://github.com/chef-partners/knife-vrealize/issues/24)
 
 **Merged pull requests:**
 
+- added more useful/required parameters to readme [\#32](https://github.com/chef-partners/knife-vrealize/pull/32) ([mcascone](https://github.com/mcascone))
+- Initial Jenkinsfile [\#28](https://github.com/chef-partners/knife-vrealize/pull/28) ([jjasghar](https://github.com/jjasghar))
+- Fixes \#24 [\#27](https://github.com/chef-partners/knife-vrealize/pull/27) ([jjasghar](https://github.com/jjasghar))
+- Updating travis and new versions of ruby [\#26](https://github.com/chef-partners/knife-vrealize/pull/26) ([jjasghar](https://github.com/jjasghar))
+
+## [v2.1.0](https://github.com/chef-partners/knife-vrealize/tree/v2.1.0) (2017-02-09)
+[Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.0.1...v2.1.0)
+
+**Merged pull requests:**
+
+- 2.1.0 release [\#23](https://github.com/chef-partners/knife-vrealize/pull/23) ([jjasghar](https://github.com/jjasghar))
 - Added ssl-mode verify [\#22](https://github.com/chef-partners/knife-vrealize/pull/22) ([jjasghar](https://github.com/jjasghar))
 
 ## [v2.0.1](https://github.com/chef-partners/knife-vrealize/tree/v2.0.1) (2017-01-10)
