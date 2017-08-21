@@ -2,7 +2,7 @@ AllCops:
   Exclude:
     - 'spec/**/*'
     - 'vendor/**/*'
-vendor/AbcSize:
+Metrics/AbcSize:
   Max: 30
 Metrics/LineLength:
   Max: 150
@@ -12,7 +12,7 @@ Style/Documentation:
   Enabled: false
 Style/SignalException:
   Enabled: false
-Style/SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
-Style/SpaceInsideBrackets:
+Layout/SpaceInsideBrackets:
   Enabled: false

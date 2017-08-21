@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -118,7 +119,7 @@ class Chef
       end
 
       def missing_config_parameters
-        [:vro_username, :vro_password, :vro_base_url].each_with_object([]) do |param, memo|
+        %i[vro_username vro_password vro_base_url].each_with_object([]) do |param, memo|
           memo << param if locate_config_value(param).nil?
         end
       end

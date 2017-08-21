@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -28,7 +29,7 @@ class Chef
             option :vra_base_url,
               long:        '--vra-base-url API_URL',
               description: 'URL for the vRA server',
-              proc:        proc { |url| url.sub(/(\/)+$/,'') }
+              proc:        proc { |url| url.sub(%r{/(\/)+$/}, '') }
 
             option :vra_username,
               long:        '--vra-username USERNAME',

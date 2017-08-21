@@ -3,13 +3,17 @@ cache: bundler
 sudo: false
 
 rvm:
-  - 2.2
-  - 2.3.3
+  - 2.3.4
   - 2.4.1
+  - ruby-head
 
 branches:
   only:
-  - master
+    - master
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
 
 script:
   - bundle exec rake style

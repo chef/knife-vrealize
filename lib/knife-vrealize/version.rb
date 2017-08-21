@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
 # Copyright:: Copyright (c) 2015 Chef Software, Inc.
@@ -18,5 +19,5 @@
 #
 
 module KnifeVrealize
-  VERSION = '2.1.1'.freeze
+  VERSION = '2.1.1'
 end
