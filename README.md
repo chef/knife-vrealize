@@ -98,6 +98,30 @@ Common parameters to specify are:
  * `--subtenant-id`: all resources must be tied back to a Business Group, or "subtenant." If your catalog item is tied to a specific Business Group, you do not need to specify this. However, if your catalog item is a global catalog item, then the subtenant ID is not available to us; you will need to provide it. It usually looks like a UUID. See your vRA administrator for assistance in determining your subtenant ID.
  * `--ssh-password`: if a linux host, the password to use during bootstrap
  * `--winrm-password`: if a windows host, the password to use during bootstrap
+ * `--image-os-type`: windows/linux
+ * `--bootstrap-protocol`: winrm/ssh
+ * `--server-create-timeout`: increase this if your vRa environments takes more than 10 minutes to give you a server.
+ * `--bootstrap-version`: use to tie to a specific chefdk version if your group is not current
+ * `-N`: node-name of the chef node to create. The gem will automatically create a node name with prefix `vra-` if not specified
+
+Most of these can be set in your `knife.rb` to simplify the command:
+```ruby
+knife[:vra_username] = 'your-username'
+knife[:vra_password] = 'your-pass'
+knife[:vra_base_url] = 'https://cloud.yourcompany.com'
+knife[:vra_tenant]   = 'your-tenant-name'
+knife[:vra_disable_ssl_verify] = true # if you want to disable SSL checking.
+knife[:subtenant_id] = 'your-subtenant-ID'
+knife[:cpus] = '2'
+knife[:memory] = '4096'
+knife[:server_create_timeout] = '1800'
+knife[:bootstrap_version] = '12.18.31' # pinning to an older version
+knife[:server_url] = chef_server_url
+knife[:requested_for] = 'your-username'
+knife[:winrm_user] = 'machine-account-name'
+knife[:winrm_password] = 'machine-account-pass'
+```
+
 
 ```
 $ knife vra server create 5dcd1900-3b89-433d-8563-9606ae1249b8 --cpus 1 --memory 512 --requested-for devmgr@corp.local --ssh-password 'mypassword' --lease-days 5
