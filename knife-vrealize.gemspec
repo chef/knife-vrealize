@@ -28,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rb-readline", "~> 0.5"
 
   spec.add_development_dependency "rake", ">= 10.0"
-  spec.add_development_dependency "chefstyle", "~> 0.35"
+  spec.add_development_dependency "chefstyle", "~> 0.13.3"
 end
