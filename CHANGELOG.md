@@ -1,11 +1,19 @@
-# Change Log
+# knife-vrealize changelog
 
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
 ## [3.0.0](https://github.com/chef-partners/knife-vrealize/tree/3.0.0) (2017-09-15)
 [Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.1.1...3.0.0)
 
 **Merged pull requests:**
 
 - Removed the chef 12 dependency [\#34](https://github.com/chef-partners/knife-vrealize/pull/34) ([jjasghar](https://github.com/jjasghar))
+<!-- latest_stable_release -->
 
 ## [v2.1.1](https://github.com/chef-partners/knife-vrealize/tree/v2.1.1) (2017-08-21)
 [Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.1.0...v2.1.1)
