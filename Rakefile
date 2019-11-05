@@ -1,21 +1,27 @@
-# frozen_string_literal: true
-
-require 'bundler/gem_tasks'
-require 'rspec/core/rake_task'
-require 'rubocop/rake_task'
-
-RSpec::Core::RakeTask.new(:spec)
-RuboCop::RakeTask.new(:style)
+require "bundler/gem_tasks"
 
 begin
-  require 'github_changelog_generator/task'
+  require "rspec/core/rake_task"
 
-  GitHubChangelogGenerator::RakeTask.new :changelog do |config|
-    config.future_release = KnifeVrealize::VERSION
-    config.issues = true
+  RSpec::Core::RakeTask.new do |t|
+    t.pattern = "spec/**/*_spec.rb"
   end
 rescue LoadError
-  puts 'github_changelog_generator is not available. gem install github_changelog_generator to generate changelogs'
+  desc "rspec is not installed, this task is disabled"
+  task :spec do
+    abort "rspec is not installed. bundle install first to make sure all dependencies are installed."
+  end
+end
+
+begin
+  require "chefstyle"
+  require "rubocop/rake_task"
+  desc "Run Chefstyle tests"
+  RuboCop::RakeTask.new(:style) do |task|
+    task.options += ["--display-cop-names", "--no-color"]
+  end
+rescue LoadError
+  puts "chefstyle gem is not installed. bundle install first to make sure all dependencies are installed."
 end
 
 task default: %i[spec style]
