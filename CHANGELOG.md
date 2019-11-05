@@ -1,16 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release 4.0.0 -->
-## [v4.0.0](https://github.com/chef-partners/knife-vrealize/tree/v4.0.0) (2019-11-05)
+<!-- latest_release 4.0.1 -->
+## [v4.0.1](https://github.com/chef-partners/knife-vrealize/tree/v4.0.1) (2019-11-05)
 
 #### Merged Pull Requests
-- Allow for knife-cloud 2.0 and require Ruby 2.4+ [#40](https://github.com/chef-partners/knife-vrealize/pull/40) ([tas50](https://github.com/tas50))
+- Update .github content, add contributing doc, add code of conduct doc [#41](https://github.com/chef-partners/knife-vrealize/pull/41) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
 <!-- release_rollup since=3.0.0 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Update .github content, add contributing doc, add code of conduct doc [#41](https://github.com/chef-partners/knife-vrealize/pull/41) ([tas50](https://github.com/tas50)) <!-- 4.0.1 -->
 - Allow for knife-cloud 2.0 and require Ruby 2.4+ [#40](https://github.com/chef-partners/knife-vrealize/pull/40) ([tas50](https://github.com/tas50)) <!-- 4.0.0 -->
 - Switch from Rubocop to Chefstyle [#39](https://github.com/chef-partners/knife-vrealize/pull/39) ([tas50](https://github.com/tas50)) <!-- 3.0.2 -->
 - Setup for Expeditor and Buildkite [#38](https://github.com/chef-partners/knife-vrealize/pull/38) ([tas50](https://github.com/tas50)) <!-- 3.0.1 -->
