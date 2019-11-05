@@ -1,32 +1,29 @@
 # knife-vrealize changelog
 
-<!-- latest_release 4.0.3 -->
-## [v4.0.3](https://github.com/chef/knife-vrealize/tree/v4.0.3) (2019-11-05)
-
-#### Merged Pull Requests
-- Slim the install down by removing test files from the gem file [#43](https://github.com/chef/knife-vrealize/pull/43) ([tas50](https://github.com/tas50))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=3.0.0 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Slim the install down by removing test files from the gem file [#43](https://github.com/chef/knife-vrealize/pull/43) ([tas50](https://github.com/tas50)) <!-- 4.0.3 -->
-- Move test deps into the Gemfile and add yard [#42](https://github.com/chef/knife-vrealize/pull/42) ([tas50](https://github.com/tas50)) <!-- 4.0.2 -->
-- Update .github content, add contributing doc, add code of conduct doc [#41](https://github.com/chef-partners/knife-vrealize/pull/41) ([tas50](https://github.com/tas50)) <!-- 4.0.1 -->
-- Allow for knife-cloud 2.0 and require Ruby 2.4+ [#40](https://github.com/chef-partners/knife-vrealize/pull/40) ([tas50](https://github.com/tas50)) <!-- 4.0.0 -->
-- Switch from Rubocop to Chefstyle [#39](https://github.com/chef-partners/knife-vrealize/pull/39) ([tas50](https://github.com/tas50)) <!-- 3.0.2 -->
-- Setup for Expeditor and Buildkite [#38](https://github.com/chef-partners/knife-vrealize/pull/38) ([tas50](https://github.com/tas50)) <!-- 3.0.1 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v4.0.3](https://github.com/chef/knife-vrealize/tree/v4.0.3) (2019-11-05)
+
+#### Merged Pull Requests
+- Setup for Expeditor and Buildkite [#38](https://github.com/chef-partners/knife-vrealize/pull/38) ([tas50](https://github.com/tas50))
+- Switch from Rubocop to Chefstyle [#39](https://github.com/chef-partners/knife-vrealize/pull/39) ([tas50](https://github.com/tas50))
+- Allow for knife-cloud 2.0 and require Ruby 2.4+ [#40](https://github.com/chef-partners/knife-vrealize/pull/40) ([tas50](https://github.com/tas50))
+- Update .github content, add contributing doc, add code of conduct doc [#41](https://github.com/chef-partners/knife-vrealize/pull/41) ([tas50](https://github.com/tas50))
+- Move test deps into the Gemfile and add yard [#42](https://github.com/chef/knife-vrealize/pull/42) ([tas50](https://github.com/tas50))
+- Slim the install down by removing test files from the gem file [#43](https://github.com/chef/knife-vrealize/pull/43) ([tas50](https://github.com/tas50))
+<!-- latest_stable_release -->
+
 ## [3.0.0](https://github.com/chef-partners/knife-vrealize/tree/3.0.0) (2017-09-15)
 [Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.1.1...3.0.0)
 
 **Merged pull requests:**
 
 - Removed the chef 12 dependency [\#34](https://github.com/chef-partners/knife-vrealize/pull/34) ([jjasghar](https://github.com/jjasghar))
-<!-- latest_stable_release -->
 
 ## [v2.1.1](https://github.com/chef-partners/knife-vrealize/tree/v2.1.1) (2017-08-21)
 [Full Changelog](https://github.com/chef-partners/knife-vrealize/compare/v2.1.0...v2.1.1)
