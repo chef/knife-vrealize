@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 3.0.1 -->
+## [v3.0.1](https://github.com/chef-partners/knife-vrealize/tree/v3.0.1) (2019-11-05)
+
+#### Merged Pull Requests
+- Setup for Expeditor and Buildkite [#38](https://github.com/chef-partners/knife-vrealize/pull/38) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=3.0.0 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Setup for Expeditor and Buildkite [#38](https://github.com/chef-partners/knife-vrealize/pull/38) ([tas50](https://github.com/tas50)) <!-- 3.0.1 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
