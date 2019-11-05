@@ -1,5 +1,8 @@
 # knife-vrealize
 
+[![Build status](https://badge.buildkite.com/a47dfccc8673a77437a9508dbd27c05ecad8cef0349e0ee520.svg)](https://buildkite.com/chef-oss/chef-partners-knife-vrealize-master-verify)
+[![Gem Version](https://badge.fury.io/rb/knife-vrealize.svg)](https://badge.fury.io/rb/knife-vrealize)
+
 This is a Knife plugin that will allow you to interact with
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
 
@@ -19,7 +22,7 @@ Or install it yourself as:
 
     $ gem install knife-vrealize
 
-... or, even better, from within ChefDK:
+... or, even better, from within Chef Workstation:
 
     $ chef gem install knife-vrealize
 
@@ -101,7 +104,7 @@ Common parameters to specify are:
  * `--image-os-type`: windows/linux
  * `--bootstrap-protocol`: winrm/ssh
  * `--server-create-timeout`: increase this if your vRa environments takes more than 10 minutes to give you a server.
- * `--bootstrap-version`: use to tie to a specific chefdk version if your group is not current
+ * `--bootstrap-version`: use to tie to a specific chef version if your group is not current
  * `-N`: node-name of the chef node to create. The gem will automatically create a node name with prefix `vra-` if not specified
 
 Most of these can be set in your `knife.rb` to simplify the command:
