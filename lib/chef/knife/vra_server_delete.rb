@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# Copyright:: 2015-2019, Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +18,12 @@
 # limitations under the License.
 #
 
-require 'chef/knife'
-require 'chef/knife/cloud/server/delete_options'
-require 'chef/knife/cloud/server/delete_command'
-require 'chef/knife/cloud/vra_service'
-require 'chef/knife/cloud/vra_service_helpers'
-require 'chef/knife/cloud/vra_service_options'
+require "chef/knife"
+require "chef/knife/cloud/server/delete_options"
+require "chef/knife/cloud/server/delete_command"
+require "chef/knife/cloud/vra_service"
+require "chef/knife/cloud/vra_service_helpers"
+require "chef/knife/cloud/vra_service_options"
 
 class Chef
   class Knife
@@ -33,12 +33,12 @@ class Chef
         include VraServiceHelpers
         include VraServiceOptions
 
-        banner 'knife vra server delete RESOURCE_ID [RESOURCE_ID] (options)'
+        banner "knife vra server delete RESOURCE_ID [RESOURCE_ID] (options)"
 
         # rubocop:disable Style/GuardClause
         def validate_params!
           if @name_args.empty?
-            ui.error('You must supply a resource ID of a server to delete.')
+            ui.error("You must supply a resource ID of a server to delete.")
             exit(1) if @name_args.empty?
           end
         end

@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# Copyright:: 2015-2019, Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-require 'chef/knife/cloud/helpers'
+require "chef/knife/cloud/helpers"
 
 class Chef
   class Knife
@@ -39,10 +39,10 @@ class Chef
           !locate_config_value(:vra_disable_ssl_verify)
         end
 
-        def wait_for_request(request, wait_time=600, refresh_rate=2)
-          print 'Waiting for request to complete.'
+        def wait_for_request(request, wait_time = 600, refresh_rate = 2)
+          print "Waiting for request to complete."
 
-          last_status = ''
+          last_status = ""
 
           begin
             Timeout.timeout(wait_time) do
@@ -55,7 +55,7 @@ class Chef
                 end
 
                 if last_status == request.status
-                  print '.'
+                  print "."
                 else
                   last_status = request.status
                   print "\n"
@@ -66,7 +66,7 @@ class Chef
               end
             end
           rescue Timeout::Error
-            ui.msg('')
+            ui.msg("")
             ui.error("Request did not complete in #{wait_time} seconds. Check the Requests tab in the vRA UI for more information.")
             exit 1
           end
@@ -81,7 +81,7 @@ class Chef
           missing = keys.select { |x| locate_config_value(x).nil? }
 
           unless missing.empty?
-            ui.error("The following required parameters are missing: #{missing.join(', ')}")
+            ui.error("The following required parameters are missing: #{missing.join(", ")}")
             exit(1)
           end
         end

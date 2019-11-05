@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# Copyright:: 2015-2019, Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,12 +18,12 @@
 # limitations under the License.
 #
 
-require 'chef/knife'
-require 'chef/knife/cloud/server/show_options'
-require 'chef/knife/cloud/server/show_command'
-require 'chef/knife/cloud/vra_service'
-require 'chef/knife/cloud/vra_service_helpers'
-require 'chef/knife/cloud/vra_service_options'
+require "chef/knife"
+require "chef/knife/cloud/server/show_options"
+require "chef/knife/cloud/server/show_command"
+require "chef/knife/cloud/vra_service"
+require "chef/knife/cloud/vra_service_helpers"
+require "chef/knife/cloud/vra_service_options"
 
 class Chef
   class Knife
@@ -33,16 +33,16 @@ class Chef
         include VraServiceHelpers
         include VraServiceOptions
 
-        banner 'knife vra server show RESOURCE_ID (options)'
+        banner "knife vra server show RESOURCE_ID (options)"
 
         def validate_params!
           if @name_args.empty?
-            ui.error('You must supply a Resource ID for a server to display.')
+            ui.error("You must supply a Resource ID for a server to display.")
             exit 1
           end
 
           if @name_args.size > 1
-            ui.error('You may only supply one Resource ID.')
+            ui.error("You may only supply one Resource ID.")
             exit 1
           end
 

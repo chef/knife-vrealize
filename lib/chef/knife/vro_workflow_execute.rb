@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# Copyright:: 2015-2019, Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,8 @@
 # limitations under the License.
 #
 
-require 'chef/knife'
-require 'vcoworkflows'
+require "chef/knife"
+require "vcoworkflows"
 
 class Chef
   class Knife
@@ -30,33 +30,33 @@ class Chef
 
       include Chef::Knife::Cloud::Helpers
 
-      banner 'knife vro workflow execute WORKFLOW_NAME [KEY=VALUE] [KEY=VALUE] (options)'
+      banner "knife vro workflow execute WORKFLOW_NAME [KEY=VALUE] [KEY=VALUE] (options)"
 
       option :vro_base_url,
-        long:        '--vro-base-url API_URL',
-        description: 'URL for the vro server'
+        long:        "--vro-base-url API_URL",
+        description: "URL for the vro server"
 
       option :vro_username,
-        long:        '--vro-username USERNAME',
-        description: 'Username to use with the vro API'
+        long:        "--vro-username USERNAME",
+        description: "Username to use with the vro API"
 
       option :vro_password,
-        long:        '--vro-password PASSWORD',
-        description: 'Password to use with the vro API'
+        long:        "--vro-password PASSWORD",
+        description: "Password to use with the vro API"
 
       option :vro_disable_ssl_verify,
-        long:        '--vro-disable-ssl-verify',
-        description: 'Skip any SSL verification for the vro API',
+        long:        "--vro-disable-ssl-verify",
+        description: "Skip any SSL verification for the vro API",
         boolean:     true,
         default:     false
 
       option :vro_workflow_id,
-        long:        '--vro-workflow-id WORKFLOW_ID',
-        description: 'ID of the workflow to execute'
+        long:        "--vro-workflow-id WORKFLOW_ID",
+        description: "ID of the workflow to execute"
 
       option :request_timeout,
-        long:        '--request-timeout SECONDS',
-        description: 'number of seconds to wait for the workflow to complete',
+        long:        "--request-timeout SECONDS",
+        description: "number of seconds to wait for the workflow to complete",
         default:     300
 
       def verify_ssl?
@@ -82,7 +82,7 @@ class Chef
 
       def parse_and_validate_params!(args)
         args.each_with_object({}) do |arg, memo|
-          key, value = arg.split('=')
+          key, value = arg.split("=")
           raise "Invalid parameter, must be in KEY=VALUE format: #{arg}" if key.nil? || value.nil?
 
           memo[key] = value
@@ -119,18 +119,18 @@ class Chef
       end
 
       def missing_config_parameters
-        %i[vro_username vro_password vro_base_url].each_with_object([]) do |param, memo|
+        %i{vro_username vro_password vro_base_url}.each_with_object([]) do |param, memo|
           memo << param if locate_config_value(param).nil?
         end
       end
 
       def validate!
         unless missing_config_parameters.empty?
-          print_error_and_exit('The following parameters are missing but required:' \
-            "#{missing_config_parameters.join(', ')}")
+          print_error_and_exit("The following parameters are missing but required:" \
+            "#{missing_config_parameters.join(", ")}")
         end
 
-        print_error_and_exit('You must supply a workflow name.') if @name_args.empty?
+        print_error_and_exit("You must supply a workflow name.") if @name_args.empty?
       end
 
       def print_error_and_exit(msg)
@@ -139,7 +139,7 @@ class Chef
       end
 
       def print_results
-        ui.msg('')
+        ui.msg("")
         print_output_parameters
         print_execution_log
       end
@@ -148,18 +148,18 @@ class Chef
         token = vro_client.token
         return if token.output_parameters.empty?
 
-        ui.msg(ui.color('Output Parameters:', :bold))
+        ui.msg(ui.color("Output Parameters:", :bold))
         token.output_parameters.each do |k, v|
           msg_pair(k, "#{v.value} (#{v.type})") unless v.value.nil? || (v.value.respond_to?(:empty?) && v.value.empty?)
         end
-        ui.msg('')
+        ui.msg("")
       end
 
       def print_execution_log
         log = vro_client.log.to_s
         return if log.nil? || log.empty?
 
-        ui.msg(ui.color('Workflow Execution Log:', :bold))
+        ui.msg(ui.color("Workflow Execution Log:", :bold))
         ui.msg(log)
       end
 
@@ -174,13 +174,13 @@ class Chef
 
         set_parameters
 
-        ui.msg('Starting workflow execution...')
+        ui.msg("Starting workflow execution...")
         execution_id = execute_workflow
 
         ui.msg("Workflow execution #{execution_id} started. Waiting for it to complete...")
         wait_for_workflow
 
-        ui.msg('Workflow execution complete.')
+        ui.msg("Workflow execution complete.")
 
         print_results
       end

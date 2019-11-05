@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# Copyright:: 2015-2019, Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,18 +18,18 @@
 # limitations under the License.
 #
 
-require 'chef/knife/cloud/exceptions'
-require 'chef/knife/cloud/service'
-require 'chef/knife/cloud/helpers'
-require 'chef/knife/cloud/vra_service_helpers'
-require 'vra'
+require "chef/knife/cloud/exceptions"
+require "chef/knife/cloud/service"
+require "chef/knife/cloud/helpers"
+require "chef/knife/cloud/vra_service_helpers"
+require "vra"
 
 class Chef
   class Knife
     class Cloud
       class VraService < Service
         include VraServiceHelpers
-        def initialize(options={})
+        def initialize(options = {})
           super(options)
 
           @username   = options[:username]
@@ -51,7 +51,7 @@ class Chef
           )
         end
 
-        def create_server(options={})
+        def create_server(options = {})
           submitted_request = catalog_request(options).submit
           ui.msg("Catalog request #{submitted_request.id} submitted.")
           wait_for_request(submitted_request, options[:wait_time].to_i, options[:refresh_rate])
@@ -61,8 +61,8 @@ class Chef
           raise CloudExceptions::ServerCreateError, submitted_request.completion_details if submitted_request.failed?
 
           servers = submitted_request.resources.select(&:vm?)
-          raise CloudExceptions::ServerCreateError, 'The vRA request created more than one server, but we were only expecting 1' if servers.length > 1
-          raise CloudExceptions::ServerCreateError, 'The vRA request did not create any servers' if servers.length.zero?
+          raise CloudExceptions::ServerCreateError, "The vRA request created more than one server, but we were only expecting 1" if servers.length > 1
+          raise CloudExceptions::ServerCreateError, "The vRA request did not create any servers" if servers.length == 0
 
           servers.first
         end
@@ -70,19 +70,19 @@ class Chef
         def delete_server(instance_id)
           server = get_server(instance_id)
           server_summary(server)
-          ui.msg('')
+          ui.msg("")
 
-          if server.status == 'DELETED'
+          if server.status == "DELETED"
             ui.warn("Server is already deleted.\n")
             return
           end
 
-          ui.confirm('Do you really want to delete this server')
+          ui.confirm("Do you really want to delete this server")
 
           destroy_request = server.destroy
           ui.msg("Destroy request #{destroy_request.id} submitted.")
           wait_for_request(destroy_request)
-          ui.msg('Destroy request complete.')
+          ui.msg("Destroy request complete.")
           request_summary(destroy_request)
         end
 
@@ -102,22 +102,22 @@ class Chef
           connection.resources.by_id(instance_id)
         end
 
-        def server_summary(server, _columns_with_info=nil)
-          msg_pair('Server ID', server.id)
-          msg_pair('Server Name', server.name)
-          msg_pair('IP Addresses', server.ip_addresses.nil? ? 'none' : server.ip_addresses.join(', '))
-          msg_pair('Status', server.status)
-          msg_pair('Catalog Name', server.catalog_name)
-          msg_pair('Owner IDs', server.owner_ids.empty? ? 'none' : server.owner_ids.join(', '))
-          msg_pair('Owner Names', server.owner_names.empty? ? 'none' : server.owner_names.join(', '))
+        def server_summary(server, _columns_with_info = nil)
+          msg_pair("Server ID", server.id)
+          msg_pair("Server Name", server.name)
+          msg_pair("IP Addresses", server.ip_addresses.nil? ? "none" : server.ip_addresses.join(", "))
+          msg_pair("Status", server.status)
+          msg_pair("Catalog Name", server.catalog_name)
+          msg_pair("Owner IDs", server.owner_ids.empty? ? "none" : server.owner_ids.join(", "))
+          msg_pair("Owner Names", server.owner_names.empty? ? "none" : server.owner_names.join(", "))
         end
 
         def request_summary(request)
-          ui.msg('')
-          msg_pair('Request Status', request.status)
-          msg_pair('Completion State', request.completion_state)
-          msg_pair('Completion Details', request.completion_details)
-          ui.msg('')
+          ui.msg("")
+          msg_pair("Request Status", request.status)
+          msg_pair("Completion State", request.completion_state)
+          msg_pair("Completion Details", request.completion_details)
+          ui.msg("")
         end
 
         def catalog_request(options)

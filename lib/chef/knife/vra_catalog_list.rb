@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: Copyright (c) 2015 Chef Software, Inc.
+# Copyright:: 2015-2019, Chef Software, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +18,11 @@
 # limitations under the License.
 #
 
-require 'chef/knife'
-require 'chef/knife/cloud/list_resource_command'
-require 'chef/knife/cloud/vra_service'
-require 'chef/knife/cloud/vra_service_helpers'
-require 'chef/knife/cloud/vra_service_options'
+require "chef/knife"
+require "chef/knife/cloud/list_resource_command"
+require "chef/knife/cloud/vra_service"
+require "chef/knife/cloud/vra_service_helpers"
+require "chef/knife/cloud/vra_service_options"
 
 class Chef
   class Knife
@@ -31,24 +31,24 @@ class Chef
         include VraServiceHelpers
         include VraServiceOptions
 
-        banner 'knife vra catalog list'
+        banner "knife vra catalog list"
 
         option :entitled,
-               long:        '--entitled-only',
-               description: 'only list entitled vRA catalog entries',
-               boolean:     true,
-               default:     false
+          long:        "--entitled-only",
+          description: "only list entitled vRA catalog entries",
+          boolean:     true,
+          default:     false
 
         def before_exec_command
           @columns_with_info = [
-            { label: 'Catalog ID',  key: 'id' },
-            { label: 'Name',        key: 'name' },
-            { label: 'Description', key: 'description' },
-            { label: 'Status',      key: 'status', value_callback: method(:format_status_value) },
-            { label: 'Subtenant',   key: 'subtenant_name' }
+            { label: "Catalog ID",  key: "id" },
+            { label: "Name",        key: "name" },
+            { label: "Description", key: "description" },
+            { label: "Status",      key: "status", value_callback: method(:format_status_value) },
+            { label: "Subtenant",   key: "subtenant_name" },
           ]
 
-          @sort_by_field = 'name'
+          @sort_by_field = "name"
         end
 
         def query_resource
@@ -57,7 +57,7 @@ class Chef
 
         def format_status_value(status)
           status = status.downcase
-          color  = if status == 'published'
+          color  = if status == "published"
                      :green
                    else
                      :red
