@@ -21,7 +21,7 @@
 require "chef/knife/cloud/exceptions"
 require "chef/knife/cloud/service"
 require "chef/knife/cloud/helpers"
-require "chef/knife/cloud/vra_service_helpers"
+require_relative "vra_service_helpers"
 require "vra"
 
 class Chef
