@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 4.0.4 -->
+## [v4.0.4](https://github.com/chef/knife-vrealize/tree/v4.0.4) (2019-12-30)
+
+#### Merged Pull Requests
+- Substitute require for require_relative [#45](https://github.com/chef/knife-vrealize/pull/45) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=4.0.3 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Substitute require for require_relative [#45](https://github.com/chef/knife-vrealize/pull/45) ([tas50](https://github.com/tas50)) <!-- 4.0.4 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
