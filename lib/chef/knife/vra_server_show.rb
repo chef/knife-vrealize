@@ -21,9 +21,9 @@
 require "chef/knife"
 require "chef/knife/cloud/server/show_options"
 require "chef/knife/cloud/server/show_command"
-require "chef/knife/cloud/vra_service"
-require "chef/knife/cloud/vra_service_helpers"
-require "chef/knife/cloud/vra_service_options"
+require_relative "cloud/vra_service"
+require_relative "cloud/vra_service_helpers"
+require_relative "cloud/vra_service_options"
 
 class Chef
   class Knife
