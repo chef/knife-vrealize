@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 4.0.5 -->
+## [v4.0.5](https://github.com/chef/knife-vrealize/tree/v4.0.5) (2019-12-31)
+
+#### Merged Pull Requests
+- Update chefstyle requirement from ~&gt; 0.13.3 to ~&gt; 0.14.0 [#46](https://github.com/chef/knife-vrealize/pull/46) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=4.0.4 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Update chefstyle requirement from ~&gt; 0.13.3 to ~&gt; 0.14.0 [#46](https://github.com/chef/knife-vrealize/pull/46) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 4.0.5 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
