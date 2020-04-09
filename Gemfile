@@ -10,7 +10,10 @@ end
 
 group :test do
   gem "chef"
-  gem "chefstyle", "~> 0.15.1"
+  if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.6")
+    gem "chef-zero", "~> 14"
+  end
+  gem "chefstyle", "~> 0.15"
   gem "rake", ">= 10.0"
   gem "rspec", "~> 3.0"
 end

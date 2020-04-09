@@ -1,6 +1,6 @@
 # knife-vrealize
 
-[![Build status](https://badge.buildkite.com/a47dfccc8673a77437a9508dbd27c05ecad8cef0349e0ee520.svg)](https://buildkite.com/chef-oss/chef-partners-knife-vrealize-master-verify)
+[![Build status](https://badge.buildkite.com/613130c62661841d0bb8ffc6c151bc9727546a8056124c627f.svg?branch=master)](https://buildkite.com/chef-oss/chef-knife-vrealize-master-verify)
 [![Gem Version](https://badge.fury.io/rb/knife-vrealize.svg)](https://badge.fury.io/rb/knife-vrealize)
 
 This is a Knife plugin that will allow you to interact with
