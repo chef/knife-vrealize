@@ -1,27 +1,24 @@
 # knife-vrealize changelog
 
-<!-- latest_release 5.0.0 -->
-## [v5.0.0](https://github.com/chef/knife-vrealize/tree/v5.0.0) (2020-04-09)
-
-#### Merged Pull Requests
-- Require Ruby 2.5 and allow for knife-cloud 3.x [#48](https://github.com/chef/knife-vrealize/pull/48) ([tas50](https://github.com/tas50))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=4.0.4 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Require Ruby 2.5 and allow for knife-cloud 3.x [#48](https://github.com/chef/knife-vrealize/pull/48) ([tas50](https://github.com/tas50)) <!-- 5.0.0 -->
-- Update chefstyle requirement from ~&gt; 0.14.0 to ~&gt; 0.15.1 [#47](https://github.com/chef/knife-vrealize/pull/47) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 4.0.6 -->
-- Update chefstyle requirement from ~&gt; 0.13.3 to ~&gt; 0.14.0 [#46](https://github.com/chef/knife-vrealize/pull/46) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 4.0.5 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v5.0.0](https://github.com/chef/knife-vrealize/tree/v5.0.0) (2020-04-09)
+
+#### Merged Pull Requests
+- Update chefstyle requirement from ~&gt; 0.13.3 to ~&gt; 0.14.0 [#46](https://github.com/chef/knife-vrealize/pull/46) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Update chefstyle requirement from ~&gt; 0.14.0 to ~&gt; 0.15.1 [#47](https://github.com/chef/knife-vrealize/pull/47) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- Require Ruby 2.5 and allow for knife-cloud 3.x [#48](https://github.com/chef/knife-vrealize/pull/48) ([tas50](https://github.com/tas50))
+<!-- latest_stable_release -->
+
 ## [v4.0.4](https://github.com/chef/knife-vrealize/tree/v4.0.4) (2019-12-30)
 
 #### Merged Pull Requests
 - Substitute require for require_relative [#45](https://github.com/chef/knife-vrealize/pull/45) ([tas50](https://github.com/tas50))
-<!-- latest_stable_release -->
 
 ## [v4.0.3](https://github.com/chef/knife-vrealize/tree/v4.0.3) (2019-11-05)
 
