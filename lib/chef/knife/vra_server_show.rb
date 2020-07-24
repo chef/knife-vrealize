@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,6 @@
 require "chef/knife"
 require "chef/knife/cloud/server/show_options"
 require "chef/knife/cloud/server/show_command"
-require_relative "cloud/vra_service"
-require_relative "cloud/vra_service_helpers"
 require_relative "cloud/vra_service_options"
 
 class Chef
@@ -30,10 +28,15 @@ class Chef
     class Cloud
       class VraServerShow < ServerShowCommand
         include ServerShowOptions
-        include VraServiceHelpers
         include VraServiceOptions
 
         banner "knife vra server show RESOURCE_ID (options)"
+
+        deps do
+          require_relative "cloud/vra_service"
+          require_relative "cloud/vra_service_helpers"
+          include VraServiceHelpers
+        end
 
         def validate_params!
           if @name_args.empty?

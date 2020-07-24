@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,16 +27,16 @@ class Chef
         include Chef::Knife::Cloud::Helpers
 
         def create_service_instance
-          Chef::Knife::Cloud::VraService.new(username:  locate_config_value(:vra_username),
-                                             password:  locate_config_value(:vra_password),
-                                             base_url:  locate_config_value(:vra_base_url),
-                                             tenant:    locate_config_value(:vra_tenant),
-                                             page_size: locate_config_value(:vra_page_size),
+          Chef::Knife::Cloud::VraService.new(username:  config[:vra_username],
+                                             password:  config[:vra_password],
+                                             base_url:  config[:vra_base_url],
+                                             tenant:    config[:vra_tenant],
+                                             page_size: config[:vra_page_size],
                                              verify_ssl: verify_ssl?)
         end
 
         def verify_ssl?
-          !locate_config_value(:vra_disable_ssl_verify)
+          !config[:vra_disable_ssl_verify]
         end
 
         def wait_for_request(request, wait_time = 600, refresh_rate = 2)
@@ -78,7 +78,7 @@ class Chef
 
         # rubocop:disable Style/GuardClause
         def check_for_missing_config_values!(*keys)
-          missing = keys.select { |x| locate_config_value(x).nil? }
+          missing = keys.select { |x| config[x].nil? }
 
           unless missing.empty?
             ui.error("The following required parameters are missing: #{missing.join(", ")}")

@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,6 @@
 require "chef/knife"
 require "chef/knife/cloud/server/create_command"
 require "chef/knife/cloud/server/create_options"
-require_relative "cloud/vra_service"
-require_relative "cloud/vra_service_helpers"
 require_relative "cloud/vra_service_options"
 
 class Chef
@@ -34,6 +32,11 @@ class Chef
         include ServerCreateOptions
 
         banner "knife vra server create CATALOG_ID (options)"
+
+        deps do
+          require_relative "cloud/vra_service"
+          require_relative "cloud/vra_service_helpers"
+        end
 
         option :cpus,
           long:        "--cpus NUM_CPUS",
@@ -97,22 +100,22 @@ class Chef
 
           @create_options = {
             catalog_id: @name_args.first,
-            cpus: locate_config_value(:cpus),
-            memory: locate_config_value(:memory),
-            requested_for: locate_config_value(:requested_for),
-            subtenant_id: locate_config_value(:subtenant_id),
-            lease_days: locate_config_value(:lease_days),
-            notes: locate_config_value(:notes),
+            cpus: config[:cpus],
+            memory: config[:memory],
+            requested_for: config[:requested_for],
+            subtenant_id: config[:subtenant_id],
+            lease_days: config[:lease_days],
+            notes: config[:notes],
             extra_params: extra_params,
-            wait_time: locate_config_value(:server_create_timeout),
-            refresh_rate: locate_config_value(:request_refresh_rate),
+            wait_time: config[:server_create_timeout],
+            refresh_rate: config[:request_refresh_rate],
           }
         end
 
         def before_bootstrap
           super
 
-          config[:chef_node_name] = locate_config_value(:chef_node_name) ? locate_config_value(:chef_node_name) : server.name
+          config[:chef_node_name] = config[:chef_node_name] ? config[:chef_node_name] : server.name
           config[:bootstrap_ip_address] = hostname_for_server
         end
 

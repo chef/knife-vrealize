@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +23,10 @@ require "chef/knife/cloud/vra_service"
 require "chef/knife/cloud/vra_service_helpers"
 
 class HelpersTester
+  def config
+    @config ||= {}
+  end
+
   include Chef::Knife::Cloud::VraServiceHelpers
   attr_accessor :ui
 end
@@ -36,12 +40,12 @@ describe "Chef::Knife::Cloud::VraServiceHelpers" do
 
   describe "#create_service_instance" do
     it "creates a service instance" do
-      allow(subject).to receive(:locate_config_value).with(:vra_username).and_return("myuser")
-      allow(subject).to receive(:locate_config_value).with(:vra_password).and_return("mypassword")
-      allow(subject).to receive(:locate_config_value).with(:vra_base_url).and_return("https://vra.corp.local")
-      allow(subject).to receive(:locate_config_value).with(:vra_tenant).and_return("mytenant")
-      allow(subject).to receive(:locate_config_value).with(:vra_page_size).and_return(50)
-      allow(subject).to receive(:locate_config_value).with(:vra_disable_ssl_verify).and_return(false)
+      subject.config[:vra_username] = "myuser"
+      subject.config[:vra_password] = "mypassword"
+      subject.config[:vra_base_url] = "https://vra.corp.local"
+      subject.config[:vra_tenant] = "mytenant"
+      subject.config[:vra_page_size] = 50
+      subject.config[:vra_disable_ssl_verify] = false
 
       expect(Chef::Knife::Cloud::VraService).to receive(:new)
         .with(username:   "myuser",
@@ -58,14 +62,14 @@ describe "Chef::Knife::Cloud::VraServiceHelpers" do
   describe "#verify_ssl?" do
     context "when vra_disable_ssl_verify is true" do
       it "returns false" do
-        allow(subject).to receive(:locate_config_value).with(:vra_disable_ssl_verify).and_return(true)
+        subject.config[:vra_disable_ssl_verify] = true
         expect(subject.verify_ssl?).to be false
       end
     end
 
     context "when vra_disable_ssl_verify is false" do
       it "returns true" do
-        allow(subject).to receive(:locate_config_value).with(:vra_disable_ssl_verify).and_return(false)
+        subject.config[:vra_disable_ssl_verify] = false
         expect(subject.verify_ssl?).to be true
       end
     end
@@ -134,8 +138,8 @@ describe "Chef::Knife::Cloud::VraServiceHelpers" do
   describe "#check_for_missing_config_values!" do
     context "when all values exist" do
       it "does not raise an error" do
-        allow(subject).to receive(:locate_config_value).with(:key1).and_return("value")
-        allow(subject).to receive(:locate_config_value).with(:key2).and_return("value")
+        subject.config[:key1] = "value"
+        subject.config[:key2] = "value"
         expect(subject.ui).not_to receive(:error)
         expect { subject.check_for_missing_config_values!(:key1, :key2) }.not_to raise_error
       end

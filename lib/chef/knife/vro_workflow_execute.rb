@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,14 +60,14 @@ class Chef
         default:     300
 
       def verify_ssl?
-        !locate_config_value(:vro_disable_ssl_verify)
+        !config[:vro_disable_ssl_verify]
       end
 
       def vro_config
         @vro_config ||= VcoWorkflows::Config.new(
-          url: locate_config_value(:vro_base_url),
-          username: locate_config_value(:vro_username),
-          password: locate_config_value(:vro_password),
+          url: config[:vro_base_url],
+          username: config[:vro_username],
+          password: config[:vro_password],
           verify_ssl: verify_ssl?
         )
       end
@@ -105,7 +105,7 @@ class Chef
       end
 
       def wait_for_workflow
-        wait_time = locate_config_value(:request_timeout)
+        wait_time = config[:request_timeout]
         Timeout.timeout(wait_time) do
           loop do
             token = vro_client.token
@@ -120,7 +120,7 @@ class Chef
 
       def missing_config_parameters
         %i{vro_username vro_password vro_base_url}.each_with_object([]) do |param, memo|
-          memo << param if locate_config_value(param).nil?
+          memo << param if config[param].nil?
         end
       end
 
@@ -129,7 +129,6 @@ class Chef
           print_error_and_exit("The following parameters are missing but required:" \
             "#{missing_config_parameters.join(", ")}")
         end
-
         print_error_and_exit("You must supply a workflow name.") if @name_args.empty?
       end
 
@@ -165,7 +164,7 @@ class Chef
 
       def set_parameters
         self.workflow_name = @name_args.shift
-        self.workflow_id   = locate_config_value(:vro_workflow_id)
+        self.workflow_id   = config[:vro_workflow_id]
         self.parameters    = parse_and_validate_params!(@name_args)
       end
 
