@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 6.0.0 -->
+## [v6.0.0](https://github.com/chef/knife-vrealize/tree/v6.0.0) (2020-08-07)
+
+#### Merged Pull Requests
+- Handling of config values for Chef 16 and fix undefined method downcase for nil:NilClass [#51](https://github.com/chef/knife-vrealize/pull/51) ([kapilchouhan99](https://github.com/kapilchouhan99))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=5.0.2 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Handling of config values for Chef 16 and fix undefined method downcase for nil:NilClass [#51](https://github.com/chef/knife-vrealize/pull/51) ([kapilchouhan99](https://github.com/kapilchouhan99)) <!-- 6.0.0 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
