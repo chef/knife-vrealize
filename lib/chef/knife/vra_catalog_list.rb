@@ -2,7 +2,7 @@
 
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,18 +20,21 @@
 
 require "chef/knife"
 require "chef/knife/cloud/list_resource_command"
-require_relative "cloud/vra_service"
-require_relative "cloud/vra_service_helpers"
 require_relative "cloud/vra_service_options"
 
 class Chef
   class Knife
     class Cloud
       class VraCatalogList < ResourceListCommand
-        include VraServiceHelpers
         include VraServiceOptions
 
         banner "knife vra catalog list"
+
+        deps do
+          require_relative "cloud/vra_service"
+          require_relative "cloud/vra_service_helpers"
+          include VraServiceHelpers
+        end
 
         option :entitled,
           long:        "--entitled-only",
@@ -52,10 +55,12 @@ class Chef
         end
 
         def query_resource
-          @service.list_catalog_items(locate_config_value(:entitled))
+          @service.list_catalog_items(config[:entitled])
         end
 
         def format_status_value(status)
+          return "-" if status.nil?
+
           status = status.downcase
           color  = if status == "published"
                      :green

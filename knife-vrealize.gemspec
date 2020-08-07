@@ -1,4 +1,3 @@
-# coding: utf-8
 # frozen_string_literal: true
 
 lib = File.expand_path("../lib", __FILE__)
@@ -19,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.files         = Dir["lib/**/*"] + %w{LICENSE}
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.5"
+  spec.required_ruby_version = ">= 2.6"
 
   spec.add_dependency "knife-cloud",  ">= 1.2.0", "< 5.0"
   spec.add_dependency "vmware-vra",   "~> 2"

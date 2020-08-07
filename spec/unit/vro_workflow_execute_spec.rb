@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,10 +40,10 @@ describe Chef::Knife::VroWorkflowExecute do
   subject { described_class.new(argv) }
 
   before(:each) do
-    Chef::Config[:knife][:vro_username]           = vro_username
-    Chef::Config[:knife][:vro_password]           = vro_password
-    Chef::Config[:knife][:vro_base_url]           = vro_base_url
-    Chef::Config[:knife][:vro_disable_ssl_verify] = vro_disable_ssl_verify
+    subject.config[:vro_username]           = vro_username
+    subject.config[:vro_password]           = vro_password
+    subject.config[:vro_base_url]           = vro_base_url
+    subject.config[:vro_disable_ssl_verify] = vro_disable_ssl_verify
   end
 
   describe "#verify_ssl?" do
@@ -179,7 +179,7 @@ describe Chef::Knife::VroWorkflowExecute do
 
     context "when the timeout is exceeded" do
       before do
-        Chef::Config[:knife][:request_timeout] = 600
+        subject.config[:request_timeout] = 600
       end
       it "raises a Timeout exception" do
         allow(Timeout).to receive(:timeout).and_raise(Timeout::Error)
@@ -209,7 +209,7 @@ describe Chef::Knife::VroWorkflowExecute do
 
     context "when a parameter is missing" do
       before do
-        Chef::Config[:knife][:vro_username] = nil
+        subject.config[:vro_username] = nil
       end
       it "returns an array with that parameter" do
         expect(subject.missing_config_parameters).to eq([ :vro_username ])
@@ -230,6 +230,7 @@ describe Chef::Knife::VroWorkflowExecute do
     context "when no workflow name is provided" do
       let(:knife) { Chef::Knife::VroWorkflowExecute.new }
       it "calls #print_error_and_exit" do
+        allow(knife).to receive(:missing_config_parameters).and_return([])
         expect(knife).to receive(:print_error_and_exit)
 
         knife.validate!

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 #
 # Author:: Chef Partner Engineering (<partnereng@chef.io>)
-# Copyright:: 2015-2019, Chef Software, Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,8 +31,8 @@ describe Chef::Knife::Cloud::VraServerCreate do
   argv += %w{--cpus 1}
   argv += %w{--memory 512}
   argv += %w{--requested-for myuser@corp.local}
-  argv += %w{--bootstrap-protocol ssh}
-  argv += %w{--ssh-password password}
+  argv += %w{--connection-protocol ssh}
+  argv += %w{--connection-password password}
   argv += %w{--extra-param key1=string:value1}
   argv += %w{--extra-param key2=integer:2}
   argv += %w{d5ba201a-449f-47a4-9d02-39196224bf01}
@@ -49,8 +49,8 @@ describe Chef::Knife::Cloud::VraServerCreate do
         argv += %w{--cpus 1}
         argv += %w{--memory 512}
         argv += %w{--requested-for myuser@corp.local}
-        argv += %w{--bootstrap-protocol ssh}
-        argv += %w{--ssh-password password}
+        argv += %w{--connection-protocol ssh}
+        argv += %w{--connection-password password}
 
         command = Chef::Knife::Cloud::VraServerCreate.new(argv)
         expect(command.ui).to receive(:error)
@@ -102,8 +102,8 @@ describe Chef::Knife::Cloud::VraServerCreate do
         argv += %w{--cpus 1}
         argv += %w{--memory 512}
         argv += %w{--requested-for myuser@corp.local}
-        argv += %w{--bootstrap-protocol ssh}
-        argv += %w{--ssh-password password}
+        argv += %w{--connection-protocol ssh}
+        argv += %w{--connection-password password}
         command = Chef::Knife::Cloud::VraServerCreate.new(argv)
 
         expect { command.validate_extra_params! }.not_to raise_error
@@ -122,8 +122,8 @@ describe Chef::Knife::Cloud::VraServerCreate do
         argv += %w{--cpus 1}
         argv += %w{--memory 512}
         argv += %w{--requested-for myuser@corp.local}
-        argv += %w{--bootstrap-protocol ssh}
-        argv += %w{--ssh-password password}
+        argv += %w{--connection-protocol ssh}
+        argv += %w{--connection-password password}
         argv += %w{d5ba201a-449f-47a4-9d02-39196224bf01}
         argv += %w{--extra-param key1=value1}
         command = Chef::Knife::Cloud::VraServerCreate.new(argv)
@@ -138,8 +138,8 @@ describe Chef::Knife::Cloud::VraServerCreate do
         argv += %w{--cpus 1}
         argv += %w{--memory 512}
         argv += %w{--requested-for myuser@corp.local}
-        argv += %w{--bootstrap-protocol ssh}
-        argv += %w{--ssh-password password}
+        argv += %w{--connection-protocol ssh}
+        argv += %w{--connection-password password}
         argv += %w{d5ba201a-449f-47a4-9d02-39196224bf01}
         argv += %w{--extra-param key1=faketype:value1}
         command = Chef::Knife::Cloud::VraServerCreate.new(argv)
