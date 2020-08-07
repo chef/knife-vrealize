@@ -1,26 +1,23 @@
 # knife-vrealize changelog
 
-<!-- latest_release 6.0.0 -->
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
 ## [v6.0.0](https://github.com/chef/knife-vrealize/tree/v6.0.0) (2020-08-07)
 
 #### Merged Pull Requests
 - Handling of config values for Chef 16 and fix undefined method downcase for nil:NilClass [#51](https://github.com/chef/knife-vrealize/pull/51) ([kapilchouhan99](https://github.com/kapilchouhan99))
-<!-- latest_release -->
-
-<!-- release_rollup since=5.0.2 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Handling of config values for Chef 16 and fix undefined method downcase for nil:NilClass [#51](https://github.com/chef/knife-vrealize/pull/51) ([kapilchouhan99](https://github.com/kapilchouhan99)) <!-- 6.0.0 -->
-<!-- release_rollup -->
-
 <!-- latest_stable_release -->
+
 ## [v5.0.2](https://github.com/chef/knife-vrealize/tree/v5.0.2) (2020-06-08)
 
 #### Merged Pull Requests
 - Update chefstyle requirement from ~&gt; 0.15 to ~&gt; 1.0 [#49](https://github.com/chef/knife-vrealize/pull/49) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 - Update knife-cloud requirement from &gt;= 1.2.0, &lt; 4.0 to &gt;= 1.2.0, &lt; 5.0 [#50](https://github.com/chef/knife-vrealize/pull/50) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
-<!-- latest_stable_release -->
 
 ## [v5.0.0](https://github.com/chef/knife-vrealize/tree/v5.0.0) (2020-04-09)
 
