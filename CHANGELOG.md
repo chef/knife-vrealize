@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 6.0.1 -->
+## [v6.0.1](https://github.com/chef/knife-vrealize/tree/v6.0.1) (2020-08-21)
+
+#### Merged Pull Requests
+- Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=6.0.0 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50)) <!-- 6.0.1 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
