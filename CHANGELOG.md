@@ -1,26 +1,23 @@
 # knife-vrealize changelog
 
-<!-- latest_release 6.0.2 -->
-## [v6.0.2](https://github.com/chef/knife-vrealize/tree/v6.0.2) (2020-11-25)
-
-#### Merged Pull Requests
-- fix uninitialized constant Chef::Knife::Cloud::VraServerCreate::VraServiceHelpers [#54](https://github.com/chef/knife-vrealize/pull/54) ([mwrock](https://github.com/mwrock))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=6.0.0 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- fix uninitialized constant Chef::Knife::Cloud::VraServerCreate::VraServiceHelpers [#54](https://github.com/chef/knife-vrealize/pull/54) ([mwrock](https://github.com/mwrock)) <!-- 6.0.2 -->
-- Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50)) <!-- 6.0.1 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v6.0.2](https://github.com/chef/knife-vrealize/tree/v6.0.2) (2020-11-25)
+
+#### Merged Pull Requests
+- Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50))
+- fix uninitialized constant Chef::Knife::Cloud::VraServerCreate::VraServiceHelpers [#54](https://github.com/chef/knife-vrealize/pull/54) ([mwrock](https://github.com/mwrock))
+<!-- latest_stable_release -->
+
 ## [v6.0.0](https://github.com/chef/knife-vrealize/tree/v6.0.0) (2020-08-07)
 
 #### Merged Pull Requests
 - Handling of config values for Chef 16 and fix undefined method downcase for nil:NilClass [#51](https://github.com/chef/knife-vrealize/pull/51) ([kapilchouhan99](https://github.com/kapilchouhan99))
-<!-- latest_stable_release -->
 
 ## [v5.0.2](https://github.com/chef/knife-vrealize/tree/v5.0.2) (2020-06-08)
 
