@@ -1,16 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release 6.0.1 -->
-## [v6.0.1](https://github.com/chef/knife-vrealize/tree/v6.0.1) (2020-08-21)
+<!-- latest_release 6.0.2 -->
+## [v6.0.2](https://github.com/chef/knife-vrealize/tree/v6.0.2) (2020-11-25)
 
 #### Merged Pull Requests
-- Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50))
+- fix uninitialized constant Chef::Knife::Cloud::VraServerCreate::VraServiceHelpers [#54](https://github.com/chef/knife-vrealize/pull/54) ([mwrock](https://github.com/mwrock))
 <!-- latest_release -->
 
 <!-- release_rollup since=6.0.0 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- fix uninitialized constant Chef::Knife::Cloud::VraServerCreate::VraServiceHelpers [#54](https://github.com/chef/knife-vrealize/pull/54) ([mwrock](https://github.com/mwrock)) <!-- 6.0.2 -->
 - Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50)) <!-- 6.0.1 -->
 <!-- release_rollup -->
 
