@@ -22,20 +22,20 @@ require "chef/knife"
 require "chef/knife/cloud/server/create_command"
 require "chef/knife/cloud/server/create_options"
 require_relative "cloud/vra_service_options"
+require_relative "cloud/vra_service_helpers"
 
 class Chef
   class Knife
     class Cloud
       class VraServerCreate < ServerCreateCommand
-        include VraServiceHelpers
         include VraServiceOptions
         include ServerCreateOptions
+        include VraServiceHelpers
 
         banner "knife vra server create CATALOG_ID (options)"
 
         deps do
           require_relative "cloud/vra_service"
-          require_relative "cloud/vra_service_helpers"
         end
 
         option :cpus,
@@ -115,7 +115,7 @@ class Chef
         def before_bootstrap
           super
 
-          config[:chef_node_name] = config[:chef_node_name] ? config[:chef_node_name] : server.name
+          config[:chef_node_name] ||= server.name
           config[:bootstrap_ip_address] = hostname_for_server
         end
 
