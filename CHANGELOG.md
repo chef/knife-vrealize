@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 6.0.3 -->
+## [v6.0.3](https://github.com/chef/knife-vrealize/tree/v6.0.3) (2021-06-25)
+
+#### Merged Pull Requests
+- Upgrade to GitHub-native Dependabot [#55](https://github.com/chef/knife-vrealize/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=6.0.2 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Upgrade to GitHub-native Dependabot [#55](https://github.com/chef/knife-vrealize/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 6.0.3 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
