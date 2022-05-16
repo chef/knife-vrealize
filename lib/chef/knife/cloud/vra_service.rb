@@ -54,11 +54,11 @@ class Chef
         def create_server(options = {})
           submitted_request = catalog_request(options).submit
           ui.msg("Catalog request #{submitted_request.id} submitted.")
-          wait_for_request(submitted_request, options[:wait_time].to_i, options[:refresh_rate])
+          wait_for_request(submitted_request, (options[:wait_time] || 600).to_i, options[:refresh_rate] || 2)
           ui.msg("Catalog request complete.\n")
           request_summary(submitted_request)
 
-          raise CloudExceptions::ServerCreateError, submitted_request.completion_details if submitted_request.failed?
+          raise CloudExceptions::ServerCreateError if submitted_request.failed?
 
           servers = submitted_request.resources.select(&:vm?)
           raise CloudExceptions::ServerCreateError, "The vRA request created more than one server, but we were only expecting 1" if servers.length > 1
@@ -67,8 +67,9 @@ class Chef
           servers.first
         end
 
-        def delete_server(instance_id)
-          server = get_server(instance_id)
+        def delete_server(deployment_id)
+          deployment = get_deployment(deployment_id)
+          server = deployment.resources.select(&:vm?).first
           server_summary(server)
           ui.msg("")
 
@@ -79,7 +80,7 @@ class Chef
 
           ui.confirm("Do you really want to delete this server")
 
-          destroy_request = server.destroy
+          destroy_request = deployment.destroy
           ui.msg("Destroy request #{destroy_request.id} submitted.")
           wait_for_request(destroy_request)
           ui.msg("Destroy request complete.")
@@ -87,48 +88,50 @@ class Chef
         end
 
         def list_servers
-          connection.resources.all_resources.select(&:vm?)
+          connection.deployments.all
         end
 
-        def list_catalog_items(entitled)
+        def list_catalog_items(project_id, entitled)
           if entitled
-            connection.catalog.entitled_items
+            connection.catalog.entitled_items(project_id)
           else
             connection.catalog.all_items
           end
         end
 
-        def get_server(instance_id)
-          connection.resources.by_id(instance_id)
+        def get_deployment(deployment_id)
+          connection.deployments.by_id(deployment_id)
+        end
+
+        def get_server(deployment_id)
+          deployment = connection.deployments.by_id(deployment_id)
+          deployment.resources.select(&:vm?).first
         end
 
         def server_summary(server, _columns_with_info = nil)
-          msg_pair("Server ID", server.id)
-          msg_pair("Server Name", server.name)
-          msg_pair("IP Addresses", server.ip_addresses.nil? ? "none" : server.ip_addresses.join(", "))
+          deployment = connection.deployments.by_id(server.deployment_id)
+          msg_pair("Deployment ID", deployment.id)
+          msg_pair("Deployment Name", deployment.name)
+          msg_pair("IP Address", server.ip_address.nil? ? "none" : server.ip_address)
           msg_pair("Status", server.status)
-          msg_pair("Catalog Name", server.catalog_name)
-          msg_pair("Owner IDs", server.owner_ids.empty? ? "none" : server.owner_ids.join(", "))
-          msg_pair("Owner Names", server.owner_names.empty? ? "none" : server.owner_names.join(", "))
+          msg_pair("Owner Names", server.owner_names.empty? ? "none" : server.owner_names)
         end
 
         def request_summary(request)
           ui.msg("")
           msg_pair("Request Status", request.status)
-          msg_pair("Completion State", request.completion_state)
-          msg_pair("Completion Details", request.completion_details)
           ui.msg("")
         end
 
         def catalog_request(options)
           catalog_request = connection.catalog.request(options[:catalog_id])
 
-          catalog_request.cpus          = options[:cpus]
-          catalog_request.memory        = options[:memory]
-          catalog_request.requested_for = options[:requested_for]
-          catalog_request.lease_days    = options[:lease_days]    unless options[:lease_days].nil?
-          catalog_request.notes         = options[:notes]         unless options[:notes].nil?
-          catalog_request.subtenant_id  = options[:subtenant_id]  unless options[:subtenant_id].nil?
+          catalog_request.image_mapping  = options[:image_mapping]
+          catalog_request.flavor_mapping = options[:flavor_mapping]
+          catalog_request.name           = options[:name]
+          catalog_request.project_id     = options[:project_id]
+          catalog_request.version        = options[:version] unless options[:version].nil?
+
           options[:extra_params]&.each do |param|
             catalog_request.set_parameter(param[:key], param[:type], param[:value])
           end

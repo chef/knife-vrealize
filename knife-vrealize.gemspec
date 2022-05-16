@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.6"
 
   spec.add_dependency "knife-cloud",  ">= 1.2.0", "< 5.0"
-  spec.add_dependency "vmware-vra",   "~> 2"
+  spec.add_dependency "vmware-vra",   "~> 3"
   spec.add_dependency "vcoworkflows", "~> 0.2"
   spec.add_dependency "rb-readline", "~> 0.5"
 end

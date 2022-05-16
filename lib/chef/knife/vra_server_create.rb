@@ -38,38 +38,30 @@ class Chef
           require_relative "cloud/vra_service"
         end
 
-        option :cpus,
-          long:        "--cpus NUM_CPUS",
-          description: "Number of CPUs the server should have"
+        option :project_id,
+          long:        "--project-id PROJECT_ID",
+          description: "ID of the project"
 
-        option :node_ssl_verify_mode,
-          long: "--node-ssl-verify-mode [peer|none]",
-          description: "Whether or not to verify the SSL cert for all HTTPS requests when bootstrapping"
-        option :memory,
-          long:        "--memory RAM_IN_MB",
-          description: "Amount of RAM, in MB, the server should have"
-
-        option :requested_for,
-          long:        "--requested-for LOGIN",
-          description: "The login to list as the owner of this resource. Will default to the vra_username parameter"
+        option :image_mapping,
+          long:        "--image-mapping IMAGE_MAPPING",
+          description: "Specifies the OS image for the new VM"
 
         option :server_create_timeout,
           long:        "--server-create-timeout SECONDS",
           description: "number of seconds to wait for the server to complete",
           default:     600
 
-        option :subtenant_id,
-          long:        "--subtenant-id ID",
-          description: 'The subtenant ID (a.k.a "business group") to list as the owner of this resource. ' \
-            "Will default to the blueprint subtenant if it exists."
+        option :flavor_mapping,
+          long:        "--flavor-mapping FLAVOR_MAPPING",
+          description: "Specifies the CUP count and RAM for the new VM"
 
-        option :lease_days,
-          long:        "--lease-days NUM_DAYS",
-          description: "Number of days requested for the server lease, provided the blueprint allows this to be specified"
+        option :version,
+          long:        "--version VERSION",
+          description: "Specifies the version of the catalog to be used. By default the latest version will be used."
 
-        option :notes,
-          long:        "--notes NOTES",
-          description: "String of text to be included in the request notes."
+        option :name,
+          long:        "--name NAME",
+          description: "Name for the newly created deployment"
 
         option :extra_params,
           long:        "--extra-param KEY=TYPE:VALUE",
@@ -90,7 +82,7 @@ class Chef
             exit 1
           end
 
-          check_for_missing_config_values!(:cpus, :memory, :requested_for)
+          check_for_missing_config_values!(:name, :flavor_mapping, :image_mapping, :project_id)
 
           validate_extra_params!
         end
@@ -100,15 +92,12 @@ class Chef
 
           @create_options = {
             catalog_id: @name_args.first,
-            cpus: config[:cpus],
-            memory: config[:memory],
-            requested_for: config[:requested_for],
-            subtenant_id: config[:subtenant_id],
-            lease_days: config[:lease_days],
-            notes: config[:notes],
+            project_id: config[:project_id],
+            image_mapping: config[:image_mapping],
+            flavor_mapping: config[:flavor_mapping],
+            version: config[:version],
+            name: config[:name],
             extra_params: extra_params,
-            wait_time: config[:server_create_timeout],
-            refresh_rate: config[:request_refresh_rate],
           }
         end
 
@@ -139,7 +128,7 @@ class Chef
         end
 
         def hostname_for_server
-          ip_address = server.ip_addresses.first
+          ip_address = server.ip_address
 
           ip_address.nil? ? server.name : ip_address
         end

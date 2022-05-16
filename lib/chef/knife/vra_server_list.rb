@@ -39,10 +39,11 @@ class Chef
 
         def before_exec_command
           @columns_with_info = [
-            { label: "Resource ID",  key: "id" },
-            { label: "Name",         key: "name" },
-            { label: "Status",       key: "status", value_callback: method(:format_status_value) },
-            { label: "Catalog Name", key: "catalog_name" },
+            { label: "Deployment ID", key: "id" },
+            { label: "Name",          key: "name" },
+            { label: "Status",        key: "status", value_callback: method(:format_status_value) },
+            { label: "Owner",         key: "owner" },
+            { label: "Description",   key: "description" },
           ]
 
           @sort_by_field = "name"

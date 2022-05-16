@@ -118,12 +118,13 @@ describe Chef::Knife::Cloud::VraService do
   describe "#delete_server" do
     context "when the server exists" do
       it "calls the appropriate methods" do
-        server = double("server", status: "ACTIVE")
+        server = double("server", status: "ACTIVE", vm?: true)
+        deployment = double("deployment", resources: [server], destroy: true)
         destroy_request = double("destroy_request", id: 1)
-        expect(subject).to receive(:get_server).with("12345").and_return(server)
+        expect(subject).to receive(:get_deployment).with("12345").and_return(deployment)
         expect(subject).to receive(:server_summary).with(server)
         expect(subject.ui).to receive(:confirm)
-        expect(server).to receive(:destroy).and_return(destroy_request)
+        expect(deployment).to receive(:destroy).and_return(destroy_request)
         expect(subject.ui).to receive(:msg).with("Destroy request 1 submitted.")
         expect(subject).to receive(:wait_for_request)
         expect(subject.ui).to receive(:msg).with("Destroy request complete.")
@@ -135,8 +136,9 @@ describe Chef::Knife::Cloud::VraService do
 
     context "when the server is already deleted" do
       it "does not call #destroy on the server object" do
-        server = double("server", status: "DELETED")
-        expect(subject).to receive(:get_server).with("12345").and_return(server)
+        server = double("server", status: "DELETED", vm?: true)
+        deployment = double("deployment", resources: [server], destroy: true)
+        expect(subject).to receive(:get_deployment).with("12345").and_return(deployment)
         expect(subject).to receive(:server_summary).with(server)
         expect(subject.ui).to receive(:warn).with("Server is already deleted.\n")
         expect(server).not_to receive(:destroy)
@@ -148,7 +150,7 @@ describe Chef::Knife::Cloud::VraService do
 
   describe "#list_servers" do
     it "calls all_resources" do
-      expect(subject).to receive_message_chain(:connection, :resources, :all_resources)
+      expect(subject).to receive_message_chain(:connection, :deployments, :all)
         .and_return([])
 
       subject.list_servers
@@ -160,7 +162,7 @@ describe Chef::Knife::Cloud::VraService do
       it "calls entitled_items" do
         expect(subject).to receive_message_chain(:connection, :catalog, :entitled_items)
 
-        subject.list_catalog_items(true)
+        subject.list_catalog_items('pro-123',true)
       end
     end
 
@@ -168,14 +170,15 @@ describe Chef::Knife::Cloud::VraService do
       it "calls all_items" do
         expect(subject).to receive_message_chain(:connection, :catalog, :all_items)
 
-        subject.list_catalog_items(false)
+        subject.list_catalog_items('pro-123',false)
       end
     end
   end
 
   describe "#get_server" do
     it "calls resources.by_id" do
-      expect(subject).to receive_message_chain(:connection, :resources, :by_id).with("12345")
+      deployment = double("deployment", resources: [])
+      expect(subject).to receive_message_chain(:connection, :deployments, :by_id).with("12345").and_return(deployment)
 
       subject.get_server("12345")
     end
@@ -185,52 +188,51 @@ describe Chef::Knife::Cloud::VraService do
     context "when handling a proper request" do
       it "calls the appropriate methods" do
         catalog_request = double("catalog_request")
-        expect(catalog_request).to receive(:cpus=).with(1)
-        expect(catalog_request).to receive(:memory=).with(512)
-        expect(catalog_request).to receive(:requested_for=).with("myuser@corp.local")
-        expect(catalog_request).to receive(:lease_days=).with(5)
-        expect(catalog_request).to receive(:notes=).with("my notes")
-        expect(catalog_request).to receive(:subtenant_id=).with("tenant1")
+        expect(catalog_request).to receive(:image_mapping=).with("vRA-image")
+        expect(catalog_request).to receive(:flavor_mapping=).with('Small')
+        expect(catalog_request).to receive(:project_id=).with("pro-123")
+        expect(catalog_request).to receive(:name=).with("test-deploy")
+        expect(catalog_request).to receive(:version=).with(1)
         expect(subject).to receive_message_chain(:connection, :catalog, :request)
           .with("12345")
           .and_return(catalog_request)
 
         subject.catalog_request(catalog_id: "12345",
-                                cpus: 1,
-                                memory: 512,
-                                requested_for: "myuser@corp.local",
-                                lease_days: 5,
-                                notes: "my notes",
-                                subtenant_id: "tenant1")
+                                image_mapping: "vRA-image",
+                                flavor_mapping: 'Small',
+                                project_id: "pro-123",
+                                name: "test-deploy",
+                                version: 1)
       end
     end
 
     context "when optional arguments are missing" do
       it "does not call the attr setters for the missing attributes" do
         catalog_request = double("catalog_request")
-        expect(catalog_request).to receive(:cpus=).with(1)
-        expect(catalog_request).to receive(:memory=).with(512)
-        expect(catalog_request).to receive(:requested_for=).with("myuser@corp.local")
-        expect(catalog_request).to_not receive(:lease_days=)
-        expect(catalog_request).to_not receive(:notes=)
-        expect(catalog_request).to_not receive(:subtenant_id=)
+        expect(catalog_request).to receive(:image_mapping=).with("vRA-image")
+        expect(catalog_request).to receive(:flavor_mapping=).with('Small')
+        expect(catalog_request).to receive(:project_id=).with("pro-123")
+        expect(catalog_request).to receive(:name=).with("test-deploy")
+        expect(catalog_request).to_not receive(:version=)
         expect(subject).to receive_message_chain(:connection, :catalog, :request)
           .with("12345")
           .and_return(catalog_request)
 
         subject.catalog_request(catalog_id: "12345",
-                                cpus: 1,
-                                memory: 512,
-                                requested_for: "myuser@corp.local")
+                                image_mapping: "vRA-image",
+                                flavor_mapping: "Small",
+                                project_id: "pro-123",
+                                name: "test-deploy")
       end
     end
 
     context "when extra parameters are supplied" do
       it "calls set_parameter on the catalog_request" do
         catalog_request = double("catalog_request")
-        expect(catalog_request).to receive(:cpus=).with(1)
-        expect(catalog_request).to receive(:memory=).with(512)
-        expect(catalog_request).to receive(:requested_for=).with("myuser@corp.local")
+        expect(catalog_request).to receive(:image_mapping=).with("vRA-image")
+        expect(catalog_request).to receive(:flavor_mapping=).with('Small')
+        expect(catalog_request).to receive(:project_id=).with("pro-123")
+        expect(catalog_request).to receive(:name=).with("test-deploy")
         expect(catalog_request).to receive(:set_parameter).with("key1", "string", "value1")
         expect(catalog_request).to receive(:set_parameter).with("key2", "integer", "2")
         expect(subject).to receive_message_chain(:connection, :catalog, :request)
@@ -238,9 +240,10 @@ describe Chef::Knife::Cloud::VraService do
           .and_return(catalog_request)
 
         subject.catalog_request(catalog_id: "12345",
-                                cpus: 1,
-                                memory: 512,
-                                requested_for: "myuser@corp.local",
+                                image_mapping: "vRA-image",
+                                flavor_mapping: 'Small',
+                                project_id: "pro-123",
+                                name: "test-deploy",
                                 extra_params: [
                                   { key: "key1", type: "string", value: "value1" },
                                   { key: "key2", type: "integer", value: "2" },
