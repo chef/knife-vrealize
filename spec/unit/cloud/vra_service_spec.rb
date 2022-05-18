@@ -162,7 +162,7 @@ describe Chef::Knife::Cloud::VraService do
       it "calls entitled_items" do
         expect(subject).to receive_message_chain(:connection, :catalog, :entitled_items)
 
-        subject.list_catalog_items('pro-123',true)
+        subject.list_catalog_items("pro-123", true)
       end
     end
 
@@ -170,7 +170,7 @@ describe Chef::Knife::Cloud::VraService do
       it "calls all_items" do
         expect(subject).to receive_message_chain(:connection, :catalog, :all_items)
 
-        subject.list_catalog_items('pro-123',false)
+        subject.list_catalog_items("pro-123", true)
       end
     end
   end
@@ -189,7 +189,7 @@ describe Chef::Knife::Cloud::VraService do
       it "calls the appropriate methods" do
         catalog_request = double("catalog_request")
         expect(catalog_request).to receive(:image_mapping=).with("vRA-image")
-        expect(catalog_request).to receive(:flavor_mapping=).with('Small')
+        expect(catalog_request).to receive(:flavor_mapping=).with("Small")
         expect(catalog_request).to receive(:project_id=).with("pro-123")
         expect(catalog_request).to receive(:name=).with("test-deploy")
         expect(catalog_request).to receive(:version=).with(1)
@@ -199,7 +199,7 @@ describe Chef::Knife::Cloud::VraService do
 
         subject.catalog_request(catalog_id: "12345",
                                 image_mapping: "vRA-image",
-                                flavor_mapping: 'Small',
+                                flavor_mapping: "Small",
                                 project_id: "pro-123",
                                 name: "test-deploy",
                                 version: 1)
@@ -210,7 +210,7 @@ describe Chef::Knife::Cloud::VraService do
       it "does not call the attr setters for the missing attributes" do
         catalog_request = double("catalog_request")
         expect(catalog_request).to receive(:image_mapping=).with("vRA-image")
-        expect(catalog_request).to receive(:flavor_mapping=).with('Small')
+        expect(catalog_request).to receive(:flavor_mapping=).with("Small")
         expect(catalog_request).to receive(:project_id=).with("pro-123")
         expect(catalog_request).to receive(:name=).with("test-deploy")
         expect(catalog_request).to_not receive(:version=)
@@ -230,7 +230,7 @@ describe Chef::Knife::Cloud::VraService do
       it "calls set_parameter on the catalog_request" do
         catalog_request = double("catalog_request")
         expect(catalog_request).to receive(:image_mapping=).with("vRA-image")
-        expect(catalog_request).to receive(:flavor_mapping=).with('Small')
+        expect(catalog_request).to receive(:flavor_mapping=).with("Small")
         expect(catalog_request).to receive(:project_id=).with("pro-123")
         expect(catalog_request).to receive(:name=).with("test-deploy")
         expect(catalog_request).to receive(:set_parameter).with("key1", "string", "value1")
@@ -241,7 +241,7 @@ describe Chef::Knife::Cloud::VraService do
 
         subject.catalog_request(catalog_id: "12345",
                                 image_mapping: "vRA-image",
-                                flavor_mapping: 'Small',
+                                flavor_mapping: "Small",
                                 project_id: "pro-123",
                                 name: "test-deploy",
                                 extra_params: [
