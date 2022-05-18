@@ -1,26 +1,24 @@
 # knife-vrealize changelog
 
-<!-- latest_release 6.0.3 -->
-## [v6.0.3](https://github.com/chef/knife-vrealize/tree/v6.0.3) (2021-06-25)
-
-#### Merged Pull Requests
-- Upgrade to GitHub-native Dependabot [#55](https://github.com/chef/knife-vrealize/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=6.0.2 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- Upgrade to GitHub-native Dependabot [#55](https://github.com/chef/knife-vrealize/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot])) <!-- 6.0.3 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v6.0.4](https://github.com/chef/knife-vrealize/tree/v6.0.4) (2022-05-18)
+
+#### Merged Pull Requests
+- Upgrade to GitHub-native Dependabot [#55](https://github.com/chef/knife-vrealize/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+- INFCT-76 Updated the vmware-vra gem dependency and added support for Ruby 3.0 and 3.1 [#62](https://github.com/chef/knife-vrealize/pull/62) ([ashiqueps](https://github.com/ashiqueps))
+<!-- latest_stable_release -->
+
 ## [v6.0.2](https://github.com/chef/knife-vrealize/tree/v6.0.2) (2020-11-25)
 
 #### Merged Pull Requests
 - Minor CI updates [#52](https://github.com/chef/knife-vrealize/pull/52) ([tas50](https://github.com/tas50))
 - fix uninitialized constant Chef::Knife::Cloud::VraServerCreate::VraServiceHelpers [#54](https://github.com/chef/knife-vrealize/pull/54) ([mwrock](https://github.com/mwrock))
-<!-- latest_stable_release -->
 
 ## [v6.0.0](https://github.com/chef/knife-vrealize/tree/v6.0.0) (2020-08-07)
 
