@@ -107,6 +107,7 @@ Common parameters to specify are:
  * `--bootstrap-protocol`: winrm/ssh
  * `--server-create-timeout`: increase this if your vRa environments takes more than 10 minutes to give you a server.
  * `--bootstrap-version`: use to tie to a specific chef version if your group is not current
+ * `--extra_params`: a hash of other data to set on a catalog request, most notably custom properties. It should follow `key=type:value` format. eg: `--extra-param hardware-config=string:Micro`
  * `-N`: node-name of the chef node to create. The gem will automatically create a node name with prefix `vra-` if not specified
 
 Most of these can be set in your `knife.rb` to simplify the command:

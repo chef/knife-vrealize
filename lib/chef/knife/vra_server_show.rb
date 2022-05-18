@@ -30,7 +30,7 @@ class Chef
         include ServerShowOptions
         include VraServiceOptions
 
-        banner "knife vra server show RESOURCE_ID (options)"
+        banner "knife vra server show DEPLOYMENT_ID (options)"
 
         deps do
           require_relative "cloud/vra_service"
@@ -40,12 +40,12 @@ class Chef
 
         def validate_params!
           if @name_args.empty?
-            ui.error("You must supply a Resource ID for a server to display.")
+            ui.error("You must supply a Deployment ID for a server to display.")
             exit 1
           end
 
           if @name_args.size > 1
-            ui.error("You may only supply one Resource ID.")
+            ui.error("You may only supply one Deployment ID.")
             exit 1
           end
 
