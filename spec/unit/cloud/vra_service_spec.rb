@@ -168,7 +168,7 @@ describe Chef::Knife::Cloud::VraService do
 
     context "when requesting all items" do
       it "calls all_items" do
-        expect(subject).to receive_message_chain(:connection, :catalog, :all_items)
+        expect(subject).to receive_message_chain(:connection, :catalog, :entitled_items)
 
         subject.list_catalog_items("pro-123", true)
       end
