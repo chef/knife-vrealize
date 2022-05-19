@@ -38,7 +38,7 @@ class Chef
 
         option :project_id,
           long:        "--project-id",
-          description: "Project ID to fetch catalogs from."
+          description: "Catalogs are retrieved using the Project ID"
 
         option :entitled,
           long:        "--entitled-only",
