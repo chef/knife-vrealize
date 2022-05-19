@@ -6,7 +6,7 @@
 This is a Knife plugin that will allow you to interact with
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
 
-Note: This version only support vRA 8.x. If you need to use this gem for vRA 7.x, try 6.0.2 or previous versions.
+Note: This version only support vRA 8.x. If you need to use this gem for vRA 7.x, try the 6.x version of this gem.
 
 ## Installation
 
