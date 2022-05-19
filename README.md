@@ -6,6 +6,8 @@
 This is a Knife plugin that will allow you to interact with
 VMware vRealize products, such as vRA and vRO, from Chef's Knife command.
 
+Note: This version only support vRA 8.x. If you need to use this gem for vRA 7.x, try the 6.x version of this gem.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -50,39 +52,40 @@ knife vra command --vra-username myuser --vra-tenant mytenant ...
 
 #### knife vra catalog list
 
-Lists catalog items that can be used to submit machine requests. By default, it will list all catalog items that your user has permission to see. To limit it to only items to which you are entitled, supply the `--entitled` flag.
+Lists catalog items that can be used to submit machine requests.
+By default, it will list all catalog items that your user has permission to see. To limit it to only items entitled to a particular project, supply the `--project-id PROJECT_ID` and `--entitled` flags.
 
 ```
 $ knife vra catalog list
-Catalog ID                            Name                         Description                                                Status     Subtenant
-a9cd6148-6e0b-4a80-ac47-f5255c52b43d  CentOS 6.6                   Blueprint for deploying a CentOS Linux development server  published
-5dcd1900-3b89-433d-8563-9606ae1249b8  CentOS 6.6 - business group  Blueprint for deploying a CentOS Linux development server  published  Rainpole Developers
-d29efd6b-3cd6-4f8d-b1d8-da4ddd4e52b1  WindowsServer2012            Windows Server 2012 with the latest updates and patches.   published
+Catalog ID                            Name                         Description                                                Source
+a9cd6148-6e0b-4a80-ac47-f5255c52b43d  CentOS 6.6                   Blueprint for deploying a CentOS Linux development server  Project-1
+5dcd1900-3b89-433d-8563-9606ae1249b8  CentOS 6.6 - business group  Blueprint for deploying a CentOS Linux development server  Project-2
+d29efd6b-3cd6-4f8d-b1d8-da4ddd4e52b1  WindowsServer2012            Windows Server 2012 with the latest updates and patches.   Project-1
 ```
 
 #### knife vra server list
 
-Lists all machine resources that your user has permission to see. The "resource ID" is needed for other commands, such as `knife vra server show` and `knife vra server destroy`
+Lists all machine resources that your user has permission to see. The "Deployment ID" is needed for other commands, such as `knife vra server show` and `knife vra server destroy`
 
 ```
 $ knife vra server list
-Resource ID                           Name        Status  Catalog Name
-2e1f6632-1613-41d1-a07c-6137c9639609  hol-dev-43  active  CentOS 6.6
-43898686-7395-468a-99b3-b0b18a8abc1b  hol-dev-44  active  CentOS 6.6
-0977f98b-d927-4e71-8b5b-b27c7deda097  hol-dev-45  active  CentOS 6.6
+Deployment ID                         Name                    Status                Owner       Description
+9bfe77c9-0915-47b6-8479-8627b1b24ac2  Centos 8                create_successful     admin       Centos 8 created for testing
+7f586519-3644-4c4a-a9de-3eb66a987993  Windows server 2012     delete_failed         user1       Windows Server
+00582a35-0365-40f1-8a47-e19579c6e5d5  Ubuntu 22.04            create_successful     admin       Test terraform
 ```
 
-#### knife vra server show RESOURCE_ID
+#### knife vra server show DEPLOYMENT_ID
 
 Displays additional information about an individual server, such as its IP addresses.
 
 ```
-$ knife vra server show 2e1f6632-1613-41d1-a07c-6137c9639609
-Server ID: 2e1f6632-1613-41d1-a07c-6137c9639609
-Server Name: hol-dev-43
-IP Addresses: 192.168.110.203
-Status: ACTIVE
-Catalog Name: CentOS 6.6
+$ knife vra server show 72fd5478-15f1-4aca-aa9b-012e2fa2ef01
+Deployment ID: 72fd5478-15f1-4aca-aa9b-012e2fa2ef01
+Deployment Name: Test terraform errors
+IP Address: 10.30.237.66
+Status: SUCCESS
+Owner Names: admin
 ```
 
 #### knife vra server create CATALOG_ID (options)
@@ -93,18 +96,18 @@ Each blueprint may require different parameters to successfully complete provisi
 
 Common parameters to specify are:
 
- * `--cpus`: number of CPUs
- * `--memory`: amount of RAM in MB
- * `--requested-for`: vRA login that should be listed as the owner
- * `--lease-days`: number of days for the resource lease
- * `--notes`: any optional notes you'd like to be logged with your request
- * `--subtenant-id`: all resources must be tied back to a Business Group, or "subtenant." If your catalog item is tied to a specific Business Group, you do not need to specify this. However, if your catalog item is a global catalog item, then the subtenant ID is not available to us; you will need to provide it. It usually looks like a UUID. See your vRA administrator for assistance in determining your subtenant ID.
+ * `--image-mapping`: The image mapping that needed for this deployment which specifies the OS image for the vm
+ * `--flavor-mapping`: specifies the CPU count and RAM of a VM
+ * `--project-id`: Project ID also needs to be passed.
+ * `--name`: Can be used to specify the name of newly created deployment. This should be unique.
+ * `--version`: Specify which version of the catalog should be used for this deployment. If left blank, the latest version will be used.
  * `--ssh-password`: if a linux host, the password to use during bootstrap
  * `--winrm-password`: if a windows host, the password to use during bootstrap
  * `--image-os-type`: windows/linux
  * `--bootstrap-protocol`: winrm/ssh
  * `--server-create-timeout`: increase this if your vRa environments takes more than 10 minutes to give you a server.
  * `--bootstrap-version`: use to tie to a specific chef version if your group is not current
+ * `--extra_params`: a hash of other data to set on a catalog request, most notably custom properties. It should follow `key=type:value` format. eg: `--extra-param hardware-config=string:Micro`
  * `-N`: node-name of the chef node to create. The gem will automatically create a node name with prefix `vra-` if not specified
 
 Most of these can be set in your `knife.rb` to simplify the command:
@@ -127,31 +130,42 @@ knife[:winrm_password] = 'machine-account-pass'
 
 
 ```
-$ knife vra server create 5dcd1900-3b89-433d-8563-9606ae1249b8 --cpus 1 --memory 512 --requested-for devmgr@corp.local --ssh-password 'mypassword' --lease-days 5
-Catalog request d282fde8-6fd2-406c-998e-328d1b659078 submitted.
+$ knife vra server create 24026193-5863-3f72-baac-7f4cd3e1d535 --name testing-centos --project-id pro-123 \
+  --image-mapping VRA-nc-lnx-ce8.0 --flavor-mapping Micro --image-os-type linux --connection-protocol ssh \
+  -P password --extra-param hardware-config=string:Micro
+Catalog request b1f13afe-d7c1-4647-8866-30681fc7f63d submitted.
 Waiting for request to complete.
-Current request status: PENDING_PRE_APPROVAL.
-Current request status: IN_PROGRESS..
+Current request status: CREATE_INPROGRESS.....................................
+Catalog request complete.
+
+Request Status: CREATE_SUCCESSFUL
+
+Deployment ID: b1f13afe-d7c1-4647-8866-30681fc7f63d
+Deployment Name: test_dep-2
+IP Address: 10.30.236.21
+Owner Names: admin
+Bootstrapping the server by using connection_protocol: ssh and image_os_type: linux
+
+Waiting for sshd to host (10.30.236.21)............
 ...
 ```
 
-#### knife vra server delete RESOURCE_ID
+#### knife vra server delete DEPLOYMENT_ID
 
-Deletes a server from vRA. If you supply `--purge`, the server will also be removed from the Chef Server.
+Deletes a deployment and associated resources from vRA. If you supply `--purge`, the server will also be removed from the Chef Server.
 
 ```
 $ knife vra server delete 2e1f6632-1613-41d1-a07c-6137c9639609 --purge
-Server ID: 2e1f6632-1613-41d1-a07c-6137c9639609
-Server Name: hol-dev-43
-IP Addresses: 192.168.110.203
-Status: ACTIVE
-Catalog Name: CentOS 6.6
+Deployment ID: 2e1f6632-1613-41d1-a07c-6137c9639609
+Deployment Name: test_dep-2
+IP Address: 10.30.236.21
+Status: SUCCESS
+Owner Names: ${userName}
 
-Do you really want to delete this server? (Y/N) Y
-Destroy request f2aa716b-ab24-4232-ac4a-07635a03b4d4 submitted.
+Do you really want to delete this server? (Y/N) y
+Destroy request 5e390a9d-1340-489d-94be-b4eb1df98c53 submitted.
 Waiting for request to complete.
-Current request status: PENDING_PRE_APPROVAL.
-Current request status: IN_PROGRESS...
+Current request status: CHECKING_APPROVAL...
 ...
 ```
 

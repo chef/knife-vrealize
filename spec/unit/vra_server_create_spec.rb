@@ -28,9 +28,10 @@ describe Chef::Knife::Cloud::VraServerCreate do
   end
 
   argv = []
-  argv += %w{--cpus 1}
-  argv += %w{--memory 512}
-  argv += %w{--requested-for myuser@corp.local}
+  argv += %w{--image-mapping vRA-image}
+  argv += %w{--flavor-mapping Small}
+  argv += %w{--project-id pro-123}
+  argv += %w{--name test-deploy}
   argv += %w{--connection-protocol ssh}
   argv += %w{--connection-password password}
   argv += %w{--extra-param key1=string:value1}
@@ -46,9 +47,10 @@ describe Chef::Knife::Cloud::VraServerCreate do
     context "when no catalog ID is supplied" do
       it "raises an error" do
         argv = []
-        argv += %w{--cpus 1}
-        argv += %w{--memory 512}
-        argv += %w{--requested-for myuser@corp.local}
+        argv += %w{--image-mapping vRA-image}
+        argv += %w{--flavor-mapping Small}
+        argv += %w{--project-id pro-123}
+        argv += %w{--name test-deploy}
         argv += %w{--connection-protocol ssh}
         argv += %w{--connection-password password}
 
@@ -99,9 +101,10 @@ describe Chef::Knife::Cloud::VraServerCreate do
     context "when no extra parameters are supplied" do
       it "does not raise an exception" do
         argv = []
-        argv += %w{--cpus 1}
-        argv += %w{--memory 512}
-        argv += %w{--requested-for myuser@corp.local}
+        argv += %w{--image-mapping vRA-image}
+        argv += %w{--flavor-mapping Small}
+        argv += %w{--project-id pro-123}
+        argv += %w{--name test-deploy}
         argv += %w{--connection-protocol ssh}
         argv += %w{--connection-password password}
         command = Chef::Knife::Cloud::VraServerCreate.new(argv)
@@ -119,9 +122,10 @@ describe Chef::Knife::Cloud::VraServerCreate do
     context "when a type or value is missing" do
       it "raises an exception" do
         argv = []
-        argv += %w{--cpus 1}
-        argv += %w{--memory 512}
-        argv += %w{--requested-for myuser@corp.local}
+        argv += %w{--image-mapping vRA-image}
+        argv += %w{--flavor-mapping Small}
+        argv += %w{--project-id pro-123}
+        argv += %w{--name test-deploy}
         argv += %w{--connection-protocol ssh}
         argv += %w{--connection-password password}
         argv += %w{d5ba201a-449f-47a4-9d02-39196224bf01}
@@ -135,9 +139,10 @@ describe Chef::Knife::Cloud::VraServerCreate do
     context "when an invalid parameter type is provided" do
       it "raises an exception" do
         argv = []
-        argv += %w{--cpus 1}
-        argv += %w{--memory 512}
-        argv += %w{--requested-for myuser@corp.local}
+        argv += %w{--image-mapping vRA-image}
+        argv += %w{--flavor-mapping Small}
+        argv += %w{--project-id pro-123}
+        argv += %w{--name test-deploy}
         argv += %w{--connection-protocol ssh}
         argv += %w{--connection-password password}
         argv += %w{d5ba201a-449f-47a4-9d02-39196224bf01}
@@ -151,18 +156,18 @@ describe Chef::Knife::Cloud::VraServerCreate do
 
   describe "#hostname_for_server" do
     let(:server)       { double("server") }
-    let(:ip_addresses) { [ "1.2.3.4" ] }
+    let(:ip_address) { "1.2.3.4" }
 
     it "returns the IP address if it exists" do
       allow(subject).to receive(:server).and_return(server)
-      allow(server).to receive(:ip_addresses).and_return(ip_addresses)
+      allow(server).to receive(:ip_address).and_return(ip_address)
 
       expect(subject.hostname_for_server).to eq("1.2.3.4")
     end
 
     it "returns the hostname if the IP address is missing" do
       allow(subject).to receive(:server).and_return(server)
-      allow(server).to receive(:ip_addresses).and_return([])
+      allow(server).to receive(:ip_address).and_return(nil)
       allow(server).to receive(:name).and_return("test_name")
 
       expect(subject.hostname_for_server).to eq("test_name")

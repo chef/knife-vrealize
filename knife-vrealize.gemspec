@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "knife"
   spec.add_dependency "knife-cloud",  ">= 1.2.0", "< 5.0"
-  spec.add_dependency "vmware-vra",   "~> 2", "< 3" # 3 and above is not supported for this version of vRA
+  spec.add_dependency "vmware-vra",   "~> 3"
   spec.add_dependency "vcoworkflows", "~> 0.2"
   spec.add_dependency "rb-readline", "~> 0.5"
 end

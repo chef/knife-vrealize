@@ -36,6 +36,10 @@ class Chef
           include VraServiceHelpers
         end
 
+        option :project_id,
+          long:        "--project-id",
+          description: "Catalogs are retrieved using the Project ID"
+
         option :entitled,
           long:        "--entitled-only",
           description: "only list entitled vRA catalog entries",
@@ -47,15 +51,14 @@ class Chef
             { label: "Catalog ID",  key: "id" },
             { label: "Name",        key: "name" },
             { label: "Description", key: "description" },
-            { label: "Status",      key: "status", value_callback: method(:format_status_value) },
-            { label: "Subtenant",   key: "subtenant_name" },
+            { label: "Source",      key: "source_name" },
           ]
 
           @sort_by_field = "name"
         end
 
         def query_resource
-          @service.list_catalog_items(config[:entitled])
+          @service.list_catalog_items(config[:project_id], config[:entitled])
         end
 
         def format_status_value(status)

@@ -30,7 +30,7 @@ class Chef
         include ServerDeleteOptions
         include VraServiceOptions
 
-        banner "knife vra server delete RESOURCE_ID [RESOURCE_ID] (options)"
+        banner "knife vra server delete DEPLOYMENT_ID [DEPLOYMENT_ID] (options)"
 
         deps do
           require_relative "cloud/vra_service"
