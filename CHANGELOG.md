@@ -1,26 +1,23 @@
 # knife-vrealize changelog
 
-<!-- latest_release 7.0.0 -->
+<!-- latest_release -->
+<!-- latest_release -->
+
+<!-- release_rollup -->
+<!-- release_rollup -->
+
+<!-- latest_stable_release -->
 ## [v7.0.0](https://github.com/chef/knife-vrealize/tree/v7.0.0) (2022-05-19)
 
 #### Merged Pull Requests
 - INFCT-76 - Updated the plugin to support vRA 8 [#63](https://github.com/chef/knife-vrealize/pull/63) ([ashiqueps](https://github.com/ashiqueps))
-<!-- latest_release -->
-
-<!-- release_rollup since=6.0.4 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- INFCT-76 - Updated the plugin to support vRA 8 [#63](https://github.com/chef/knife-vrealize/pull/63) ([ashiqueps](https://github.com/ashiqueps)) <!-- 7.0.0 -->
-<!-- release_rollup -->
-
 <!-- latest_stable_release -->
+
 ## [v6.0.4](https://github.com/chef/knife-vrealize/tree/v6.0.4) (2022-05-18)
 
 #### Merged Pull Requests
 - Upgrade to GitHub-native Dependabot [#55](https://github.com/chef/knife-vrealize/pull/55) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
 - INFCT-76 Updated the vmware-vra gem dependency and added support for Ruby 3.0 and 3.1 [#62](https://github.com/chef/knife-vrealize/pull/62) ([ashiqueps](https://github.com/ashiqueps))
-<!-- latest_stable_release -->
 
 ## [v6.0.2](https://github.com/chef/knife-vrealize/tree/v6.0.2) (2020-11-25)
 
