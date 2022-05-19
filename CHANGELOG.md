@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 7.0.0 -->
+## [v7.0.0](https://github.com/chef/knife-vrealize/tree/v7.0.0) (2022-05-19)
+
+#### Merged Pull Requests
+- INFCT-76 - Updated the plugin to support vRA 8 [#63](https://github.com/chef/knife-vrealize/pull/63) ([ashiqueps](https://github.com/ashiqueps))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=6.0.4 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- INFCT-76 - Updated the plugin to support vRA 8 [#63](https://github.com/chef/knife-vrealize/pull/63) ([ashiqueps](https://github.com/ashiqueps)) <!-- 7.0.0 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->

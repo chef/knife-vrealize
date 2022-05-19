@@ -19,5 +19,5 @@
 #
 
 module KnifeVrealize
-  VERSION = "6.0.4"
+  VERSION = "7.0.0"
 end
