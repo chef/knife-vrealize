@@ -53,7 +53,7 @@ class Chef
 
         option :flavor_mapping,
           long:        "--flavor-mapping FLAVOR_MAPPING",
-          description: "Specifies the CUP count and RAM for the new VM"
+          description: "Specifies the CPU count and RAM for the new VM"
 
         option :version,
           long:        "--version VERSION",

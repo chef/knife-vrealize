@@ -53,7 +53,7 @@ knife vra command --vra-username myuser --vra-tenant mytenant ...
 #### knife vra catalog list
 
 Lists catalog items that can be used to submit machine requests.
-By default, it will list all catalog items that your user has permission to see. To limit it to only items entitled entitled to a particular project, supply the `--project-id PROJECT_ID` and `--entitled` flags.
+By default, it will list all catalog items that your user has permission to see. To limit it to only items entitled to a particular project, supply the `--project-id PROJECT_ID` and `--entitled` flags.
 
 ```
 $ knife vra catalog list
