@@ -1,9 +1,17 @@
 # knife-vrealize changelog
 
-<!-- latest_release -->
+<!-- latest_release 7.0.1 -->
+## [v7.0.1](https://github.com/chef/knife-vrealize/tree/v7.0.1) (2023-04-19)
+
+#### Merged Pull Requests
+- CHEF-1918 Fixed the knife-vrealize verify test failure [#66](https://github.com/chef/knife-vrealize/pull/66) ([nikhil2611](https://github.com/nikhil2611))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=7.0.0 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- CHEF-1918 Fixed the knife-vrealize verify test failure [#66](https://github.com/chef/knife-vrealize/pull/66) ([nikhil2611](https://github.com/nikhil2611)) <!-- 7.0.1 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
